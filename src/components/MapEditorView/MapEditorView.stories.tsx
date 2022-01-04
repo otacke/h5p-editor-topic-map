@@ -42,6 +42,7 @@ Empty.args = {
 let withItemsItems: Array<TopicMapItemType> = [
   {
     id: "1",
+    type: "topic-map-item",
     xPercentagePosition: 0,
     yPercentagePosition: 0,
     widthPercentage: 15,
@@ -55,6 +56,7 @@ let withItemsItems: Array<TopicMapItemType> = [
   },
   {
     id: "2",
+    type: "topic-map-item",
     xPercentagePosition: 5,
     yPercentagePosition: 30,
     widthPercentage: 30,
@@ -69,6 +71,7 @@ let withItemsItems: Array<TopicMapItemType> = [
   },
   {
     id: "3",
+    type: "topic-map-item",
     xPercentagePosition: 50,
     yPercentagePosition: 30,
     widthPercentage: 20,
@@ -86,6 +89,7 @@ let withItemsItems: Array<TopicMapItemType> = [
 let withItemsArrows: Array<ArrowItemType> = [
   {
     id: "4",
+    type: "arrow",
     xPercentagePosition: 35,
     yPercentagePosition: 40,
     widthPercentage: 15,
@@ -120,6 +124,7 @@ FullscreenWithItems.args = {
   initialGridItems: [
     {
       id: "1",
+      type: "topic-map-item",
       xPercentagePosition: 0,
       yPercentagePosition: 0,
       widthPercentage: 15,
@@ -133,6 +138,7 @@ FullscreenWithItems.args = {
     },
     {
       id: "2",
+      type: "topic-map-item",
       xPercentagePosition: 5,
       yPercentagePosition: 30,
       widthPercentage: 30,
@@ -147,6 +153,7 @@ FullscreenWithItems.args = {
     },
     {
       id: "3",
+      type: "topic-map-item",
       xPercentagePosition: 50,
       yPercentagePosition: 30,
       widthPercentage: 20,

@@ -21,6 +21,7 @@ describe(resizeItem.name, () => {
   it("should scale the item down if the scale factor is lower than 1", () => {
     const item: TopicMapItemType = {
       id: "test",
+      type: "topic-map-item",
       xPercentagePosition: 10,
       yPercentagePosition: 10,
       widthPercentage: 20,
@@ -33,6 +34,7 @@ describe(resizeItem.name, () => {
 
     const expectedItem: TopicMapItemType = {
       id: "test",
+      type: "topic-map-item",
       xPercentagePosition: 5,
       yPercentagePosition: 5,
       widthPercentage: 10,
@@ -49,6 +51,7 @@ describe(resizeItem.name, () => {
   it("should scale the item down if the scale factor is greater than 1", () => {
     const item: TopicMapItemType = {
       id: "test",
+      type: "topic-map-item",
       xPercentagePosition: 10,
       yPercentagePosition: 10,
       widthPercentage: 20,
@@ -61,6 +64,7 @@ describe(resizeItem.name, () => {
 
     const expectedItem: TopicMapItemType = {
       id: "test",
+      type: "topic-map-item",
       xPercentagePosition: 20,
       yPercentagePosition: 20,
       widthPercentage: 40,
@@ -77,6 +81,7 @@ describe(resizeItem.name, () => {
   it("should do nothing if the scale factor is 1", () => {
     const item: TopicMapItemType = {
       id: "test",
+      type: "topic-map-item",
       xPercentagePosition: 10,
       yPercentagePosition: 10,
       widthPercentage: 20,
@@ -89,6 +94,7 @@ describe(resizeItem.name, () => {
 
     const expectedItem: TopicMapItemType = {
       id: "test",
+      type: "topic-map-item",
       xPercentagePosition: 10,
       yPercentagePosition: 10,
       widthPercentage: 20,
@@ -107,6 +113,7 @@ describe(resizeItem.name, () => {
       fc.property(fc.double(), scaleFactor => {
         const item: TopicMapItemType = {
           id: "test",
+          type: "topic-map-item",
           xPercentagePosition: 10,
           yPercentagePosition: 10,
           widthPercentage: 20,
@@ -120,6 +127,7 @@ describe(resizeItem.name, () => {
 
         const expectedItem: TopicMapItemType = {
           id: "test",
+          type: "topic-map-item",
           xPercentagePosition: 10 * scaleFactor,
           yPercentagePosition: 10 * scaleFactor,
           widthPercentage: 20 * scaleFactor,
@@ -167,6 +175,7 @@ describe(updateItem.name, () => {
   it("should find the item in the items list and update the position and size based on the grid's width and height", () => {
     const item: TopicMapItemType = {
       id: "1",
+      type: "topic-map-item",
       xPercentagePosition: 25,
       yPercentagePosition: 20,
       widthPercentage: 10,
@@ -179,6 +188,7 @@ describe(updateItem.name, () => {
       item,
       {
         id: "2",
+        type: "topic-map-item",
         xPercentagePosition: 25,
         yPercentagePosition: 60,
         widthPercentage: 65,
@@ -203,6 +213,7 @@ describe(updateItem.name, () => {
 
     const expectedItem: TopicMapItemType = {
       id: "1",
+      type: "topic-map-item",
       xPercentagePosition: 5,
       yPercentagePosition: 10,
       widthPercentage: 20,
@@ -220,6 +231,7 @@ describe(updateItem.name, () => {
       expectedItem,
       {
         id: "2",
+        type: "topic-map-item",
         xPercentagePosition: 25,
         yPercentagePosition: 60,
         widthPercentage: 65,
@@ -233,6 +245,7 @@ describe(updateItem.name, () => {
   it("should update without changing the list, and without changing the item object itself", () => {
     const item: TopicMapItemType = {
       id: "1",
+      type: "topic-map-item",
       xPercentagePosition: 25,
       yPercentagePosition: 20,
       widthPercentage: 10,
@@ -245,6 +258,7 @@ describe(updateItem.name, () => {
       item,
       {
         id: "2",
+        type: "topic-map-item",
         xPercentagePosition: 25,
         yPercentagePosition: 60,
         widthPercentage: 65,
@@ -271,6 +285,7 @@ describe(updateItem.name, () => {
 
     expect(item).toEqual({
       id: "1",
+      type: "topic-map-item",
       xPercentagePosition: 25,
       yPercentagePosition: 20,
       widthPercentage: 10,
@@ -281,6 +296,7 @@ describe(updateItem.name, () => {
 
     expect(items[0]).toEqual({
       id: "1",
+      type: "topic-map-item",
       xPercentagePosition: 25,
       yPercentagePosition: 20,
       widthPercentage: 10,
@@ -291,6 +307,7 @@ describe(updateItem.name, () => {
 
     expect(items[1]).toEqual<TopicMapItemType>({
       id: "2",
+      type: "topic-map-item",
       xPercentagePosition: 25,
       yPercentagePosition: 60,
       widthPercentage: 65,
@@ -303,6 +320,7 @@ describe(updateItem.name, () => {
   it("should be able to update only the size", () => {
     const item: TopicMapItemType = {
       id: "1",
+      type: "topic-map-item",
       xPercentagePosition: 25,
       yPercentagePosition: 20,
       widthPercentage: 10,
@@ -315,6 +333,7 @@ describe(updateItem.name, () => {
       item,
       {
         id: "2",
+        type: "topic-map-item",
         xPercentagePosition: 25,
         yPercentagePosition: 60,
         widthPercentage: 65,
@@ -337,6 +356,7 @@ describe(updateItem.name, () => {
 
     const expectedItem: TopicMapItemType = {
       id: "1",
+      type: "topic-map-item",
       xPercentagePosition: 25,
       yPercentagePosition: 20,
       widthPercentage: 20,
@@ -353,6 +373,7 @@ describe(updateItem.name, () => {
       expectedItem,
       {
         id: "2",
+        type: "topic-map-item",
         xPercentagePosition: 25,
         yPercentagePosition: 60,
         widthPercentage: 65,
@@ -369,6 +390,7 @@ describe(updateItem.name, () => {
   it("should be able to update only the position", () => {
     const item: TopicMapItemType = {
       id: "1",
+      type: "topic-map-item",
       xPercentagePosition: 25,
       yPercentagePosition: 20,
       widthPercentage: 10,
@@ -381,6 +403,7 @@ describe(updateItem.name, () => {
       item,
       {
         id: "2",
+        type: "topic-map-item",
         xPercentagePosition: 25,
         yPercentagePosition: 60,
         widthPercentage: 65,
@@ -403,6 +426,7 @@ describe(updateItem.name, () => {
 
     const expectedItem: TopicMapItemType = {
       id: "1",
+      type: "topic-map-item",
       xPercentagePosition: 5,
       yPercentagePosition: 10,
       widthPercentage: 10,
@@ -419,6 +443,7 @@ describe(updateItem.name, () => {
       expectedItem,
       {
         id: "2",
+        type: "topic-map-item",
         xPercentagePosition: 25,
         yPercentagePosition: 60,
         widthPercentage: 65,

@@ -345,6 +345,7 @@ export const createTopicMapItem = (): TopicMapItemType => {
 
   const item: TopicMapItemType = {
     id,
+    type: "topic-map-item",
     xPercentagePosition: 0,
     yPercentagePosition: 0,
     widthPercentage: 0,
@@ -363,6 +364,7 @@ export const createArrowItem = (
 
   const item: ArrowItemType = {
     id,
+    type: "arrow",
     xPercentagePosition: 0,
     yPercentagePosition: 0,
     widthPercentage: 0,

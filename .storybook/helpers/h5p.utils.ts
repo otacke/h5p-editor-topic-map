@@ -114,6 +114,7 @@ export const parent: H5PForm = {
       topicMapItems: [
         {
           id: "6133281e-7b52-408b-a66c-0878fd839ca4",
+          type: "topic-map-item",
           xPercentagePosition: 15,
           yPercentagePosition: 8.333333333333332,
           widthPercentage: 20,
@@ -123,6 +124,7 @@ export const parent: H5PForm = {
         },
         {
           id: "461c2820-da07-43bb-8d14-a798c396fd7a",
+          type: "topic-map-item",
           xPercentagePosition: 45,
           yPercentagePosition: 8.333333333333332,
           widthPercentage: 45,
@@ -132,6 +134,7 @@ export const parent: H5PForm = {
         },
         {
           id: "8123ecbf-d416-42a5-8106-47b440de51ec",
+          type: "topic-map-item",
           xPercentagePosition: 15,
           yPercentagePosition: 50,
           widthPercentage: 20,

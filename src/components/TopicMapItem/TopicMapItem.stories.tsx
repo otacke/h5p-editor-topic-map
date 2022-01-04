@@ -30,6 +30,7 @@ export const WithDescription = Template.bind({});
 WithDescription.args = {
   item: {
     id: "1",
+    type: "topic-map-item",
     label: "Label",
     description:
       "Automatically, all of these beautiful, beautiful things will happen. These things happen automatically. All you have to do is just let them happen. A happy cloud. I get carried away with this brush cleaning.",
@@ -44,6 +45,7 @@ export const WithoutImage = Template.bind({});
 WithoutImage.args = {
   item: {
     id: "1",
+    type: "topic-map-item",
     label: "Label",
     description:
       "Automatically, all of these beautiful, beautiful things will happen. These things happen automatically. All you have to do is just let them happen. A happy cloud. I get carried away with this brush cleaning.",

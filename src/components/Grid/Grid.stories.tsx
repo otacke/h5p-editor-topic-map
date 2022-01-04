@@ -37,6 +37,7 @@ GridWithDraggable.args = {
   initialItems: [
     {
       id: "1",
+      type: "topic-map-item",
       xPercentagePosition: 25,
       yPercentagePosition: 20,
       widthPercentage: 10,
@@ -51,6 +52,7 @@ GridWithDraggable.args = {
 
     {
       id: "2",
+      type: "topic-map-item",
       xPercentagePosition: 25,
       yPercentagePosition: 60,
       widthPercentage: 65,
