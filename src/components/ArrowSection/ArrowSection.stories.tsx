@@ -25,7 +25,9 @@ export default {
   },
 } as ComponentMeta<typeof ArrowSection>;
 
-const Template: ComponentStory<typeof ArrowSection> = args => <ArrowSection {...args} />;
+const Template: ComponentStory<typeof ArrowSection> = args => (
+  <ArrowSection {...args} />
+);
 
 export const RightDirectionalEmptyArrow = Template.bind({});
 RightDirectionalEmptyArrow.args = {
