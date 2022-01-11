@@ -25,7 +25,7 @@ import {
   updateArrowItem,
   updateItem,
 } from "../../utils/grid.utils";
-import { Arrow } from "../ArrowSection/ArrowSection";
+import { ArrowSection } from "../ArrowSection/ArrowSection";
 import { Draggable } from "../Draggable/Draggable";
 import { GridIndicator } from "../GridIndicator/GridIndicator";
 import { ToolbarButtonType } from "../Toolbar/Toolbar";
@@ -880,7 +880,7 @@ export const Grid: React.FC<GridProps> = ({
           updateArrowType={updateArrowType}
           isArrow
         >
-          <Arrow
+          <ArrowSection
             start={
               isHorizontal
                 ? { x: itemWidthPercentage, y: itemHeightPercentage }

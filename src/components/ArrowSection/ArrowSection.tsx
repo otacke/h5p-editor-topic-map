@@ -30,7 +30,7 @@ const directionClassNames = {
 } as const;
 
 // TODO: Share code with h5p-topic-map instead of duplicating
-export const Arrow: React.FC<ArrowProps> = ({
+export const ArrowSection: React.FC<ArrowProps> = ({
   start,
   end,
   type,

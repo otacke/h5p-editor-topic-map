@@ -2,13 +2,13 @@
 import * as React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { Arrow } from "./ArrowSection";
+import { ArrowSection } from "./ArrowSection";
 import { ArrowDirection } from "../../types/ArrowDirection";
 import { ArrowType } from "../../types/ArrowType";
 
 export default {
   title: "Molecules/Arrow",
-  component: Arrow,
+  component: ArrowSection,
   argTypes: {
     type: {
       options: {
@@ -23,9 +23,9 @@ export default {
     cellSize: 30,
     gapSize: 15,
   },
-} as ComponentMeta<typeof Arrow>;
+} as ComponentMeta<typeof ArrowSection>;
 
-const Template: ComponentStory<typeof Arrow> = args => <Arrow {...args} />;
+const Template: ComponentStory<typeof ArrowSection> = args => <ArrowSection {...args} />;
 
 export const RightDirectionalEmptyArrow = Template.bind({});
 RightDirectionalEmptyArrow.args = {
