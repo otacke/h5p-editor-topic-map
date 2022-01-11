@@ -25,7 +25,7 @@ import {
   updateArrowItem,
   updateItem,
 } from "../../utils/grid.utils";
-import { Arrow } from "../Arrow/Arrow";
+import { Arrow } from "../ArrowSection/ArrowSection";
 import { Draggable } from "../Draggable/Draggable";
 import { GridIndicator } from "../GridIndicator/GridIndicator";
 import { ToolbarButtonType } from "../Toolbar/Toolbar";

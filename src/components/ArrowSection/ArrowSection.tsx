@@ -11,7 +11,7 @@ import {
   MirroredArrowHead,
   MirroredArrowHeadVertical,
 } from "../ArrowParts/ArrowParts";
-import styles from "./Arrow.module.scss";
+import styles from "./ArrowSection.module.scss";
 
 export type ArrowProps = {
   start: Position;

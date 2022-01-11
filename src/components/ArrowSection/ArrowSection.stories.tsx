@@ -2,7 +2,7 @@
 import * as React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { Arrow } from "./Arrow";
+import { Arrow } from "./ArrowSection";
 import { ArrowDirection } from "../../types/ArrowDirection";
 import { ArrowType } from "../../types/ArrowType";
 
