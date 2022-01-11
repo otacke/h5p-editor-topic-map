@@ -25,6 +25,7 @@ import {
   updateArrowItem,
   updateItem,
 } from "../../utils/grid.utils";
+import { Arrow } from "../Arrow/Arrow";
 import { ArrowSection } from "../ArrowSection/ArrowSection";
 import { Draggable } from "../Draggable/Draggable";
 import { GridIndicator } from "../GridIndicator/GridIndicator";
@@ -854,6 +855,16 @@ export const Grid: React.FC<GridProps> = ({
       // prettier-ignore
       const itemHeightPercentage = Math.abs(scaleY(item.heightPercentage + (gapSize * 2.1) / numberOfRows, size.height));
 
+      const arrowPositions = isHorizontal
+        ? [
+            { x: itemWidthPercentage, y: itemHeightPercentage },
+            { x: 0, y: 0 },
+          ]
+        : [
+            { x: 0, y: 0 },
+            { x: itemWidthPercentage, y: itemHeightPercentage },
+          ];
+
       return (
         <Draggable
           key={item.id}
@@ -880,19 +891,9 @@ export const Grid: React.FC<GridProps> = ({
           updateArrowType={updateArrowType}
           isArrow
         >
-          <ArrowSection
-            start={
-              isHorizontal
-                ? { x: itemWidthPercentage, y: itemHeightPercentage }
-                : { x: 0, y: 0 }
-            }
-            end={
-              isHorizontal
-                ? { x: 0, y: 0 }
-                : { x: itemWidthPercentage, y: itemHeightPercentage }
-            }
+          <Arrow
+            positions={arrowPositions}
             type={item.arrowType}
-            direction={item.arrowDirection}
             cellSize={cellSize}
             gapSize={gapSize}
           />

@@ -7,7 +7,7 @@ import { ArrowDirection } from "../../types/ArrowDirection";
 import { ArrowType } from "../../types/ArrowType";
 
 export default {
-  title: "Molecules/Arrow",
+  title: "Molecules/ArrowSection",
   component: ArrowSection,
   argTypes: {
     type: {
