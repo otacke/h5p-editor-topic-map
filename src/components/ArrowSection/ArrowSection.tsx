@@ -13,7 +13,7 @@ import {
 } from "../ArrowParts/ArrowParts";
 import styles from "./ArrowSection.module.scss";
 
-export type ArrowProps = {
+export type ArrowSectionProps = {
   start: Position;
   end: Position;
   type: ArrowType;
@@ -30,7 +30,7 @@ const directionClassNames = {
 } as const;
 
 // TODO: Share code with h5p-topic-map instead of duplicating
-export const ArrowSection: React.FC<ArrowProps> = ({
+export const ArrowSection: React.FC<ArrowSectionProps> = ({
   start,
   end,
   type,
