@@ -192,6 +192,7 @@ describe("Arrow utils", () => {
 
       const expected: Array<ArrowSectionVM> = [
         {
+          id: "",
           direction: ArrowDirection.Up,
           type: ArrowType.Directional,
           start: { x: 0, y: 1 },
@@ -217,6 +218,7 @@ describe("Arrow utils", () => {
 
       const expected: Array<ArrowSectionVM> = [
         {
+          id: "",
           direction: ArrowDirection.Down,
           type: ArrowType.Directional,
           start: { x: 0, y: 0 },
@@ -242,6 +244,7 @@ describe("Arrow utils", () => {
 
       const expected: Array<ArrowSectionVM> = [
         {
+          id: "",
           direction: ArrowDirection.Left,
           type: ArrowType.Directional,
           start: { x: 1, y: 0 },
@@ -267,6 +270,7 @@ describe("Arrow utils", () => {
 
       const expected: Array<ArrowSectionVM> = [
         {
+          id: "",
           direction: ArrowDirection.Right,
           type: ArrowType.Directional,
           start: { x: 0, y: 0 },
@@ -292,6 +296,7 @@ describe("Arrow utils", () => {
 
       const expected: Array<ArrowSectionVM> = [
         {
+          id: "",
           direction: ArrowDirection.Down,
           type: ArrowType.BiDirectional,
           start: { x: 0, y: 0 },
@@ -317,6 +322,7 @@ describe("Arrow utils", () => {
 
       const expected: Array<ArrowSectionVM> = [
         {
+          id: "",
           direction: ArrowDirection.Right,
           type: ArrowType.BiDirectional,
           start: { x: 0, y: 0 },
@@ -342,6 +348,7 @@ describe("Arrow utils", () => {
 
       const expected: Array<ArrowSectionVM> = [
         {
+          id: "",
           direction: ArrowDirection.Down,
           type: ArrowType.NonDirectional,
           start: { x: 0, y: 0 },
@@ -367,6 +374,7 @@ describe("Arrow utils", () => {
 
       const expected: Array<ArrowSectionVM> = [
         {
+          id: "",
           direction: ArrowDirection.Right,
           type: ArrowType.NonDirectional,
           start: { x: 0, y: 0 },
@@ -394,12 +402,14 @@ describe("Arrow utils", () => {
 
       const expected: Array<ArrowSectionVM> = [
         {
+          id: "",
           direction: ArrowDirection.Left,
           type: ArrowType.Directional,
           start: { x: 0, y: 0 },
           end: { x: 1, y: 0 },
         },
         {
+          id: "",
           direction: ArrowDirection.Down,
           type: ArrowType.Directional,
           start: { x: 1, y: 0 },
@@ -427,12 +437,14 @@ describe("Arrow utils", () => {
 
       const expected: Array<ArrowSectionVM> = [
         {
+          id: "",
           direction: ArrowDirection.Right,
           type: ArrowType.NonDirectional,
           start: { x: 0, y: 0 },
           end: { x: 1, y: 0 },
         },
         {
+          id: "",
           direction: ArrowDirection.Down,
           type: ArrowType.Directional,
           start: { x: 1, y: 0 },
@@ -460,12 +472,14 @@ describe("Arrow utils", () => {
 
       const expected: Array<ArrowSectionVM> = [
         {
+          id: "",
           direction: ArrowDirection.Right,
           type: ArrowType.NonDirectional,
           start: { x: 0, y: 0 },
           end: { x: 1, y: 0 },
         },
         {
+          id: "",
           direction: ArrowDirection.Down,
           type: ArrowType.NonDirectional,
           start: { x: 1, y: 0 },

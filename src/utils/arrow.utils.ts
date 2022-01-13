@@ -1,3 +1,4 @@
+import { v4 as uuidV4 } from "uuid";
 import { ArrowDirection } from "../types/ArrowDirection";
 import { ArrowSectionType } from "../types/ArrowSection";
 import { ArrowSectionVM } from "../types/ArrowSectionVM";
@@ -121,6 +122,7 @@ export const createSectionComponents = (
       }
 
       return {
+        id: uuidV4(),
         type: componentType,
         direction: componentDirection,
         start,
