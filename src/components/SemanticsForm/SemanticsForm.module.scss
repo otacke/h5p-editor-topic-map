@@ -18,6 +18,10 @@
   -webkit-font-smoothing: antialiased;
   transition: 0.1s;
 
+  &:disabled {
+    cursor: not-allowed;
+  }
+
   &:hover {
     background-color: #0079c6;
     background-image: linear-gradient(
