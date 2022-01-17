@@ -6,7 +6,7 @@
     "context-menu_arrow-bi-directional": "Divvirzienu bulta",
     "context-menu_arrow-non-directional": "Viena līnija",
     "dialog_close": "Aizvēršanas dialogs",
-    "draggable_delete-confirmation": "Vai esat pārliecināts, ka vēlaties dzēst šo vienumu?",
+    "draggable_delete-item-confirmation": "Vai esat pārliecināts, ka vēlaties dzēst šo vienumu?",
     "draggable_delete-positive": "Dzēst vienumu",
     "draggable_delete-negative": "Atcelt",
     "draggable_selected": "Spiediet bultiņu pogas, lai kustētos. Nospiediet taustiņu Esc, lai noņemtu atlasi.",

@@ -16,6 +16,6 @@
     "context-menu_edit": "Bewerken",
     "context-menu_arrow-non-directional": "Enkele lijn",
     "dialog_close": "Dialoog sluiten",
-    "draggable_delete-confirmation": "Weet je zeker dat je dit onderdeel wilt verwijderen?"
+    "draggable_delete-item-confirmation": "Weet je zeker dat je dit onderdeel wilt verwijderen?"
   }
 }

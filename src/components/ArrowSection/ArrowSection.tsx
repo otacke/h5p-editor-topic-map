@@ -43,10 +43,11 @@ export const ArrowSection: React.FC<ArrowSectionProps> = ({
 
   const classNames = `${styles.arrow} ${directionClassNames[direction]}`;
 
-  const transform = isHorizontal
-    ? `translateY(-${gapSize / 2}px)`
-    : `translateX(-${gapSize / 2}px)`;
+  const transform = `translateX(${start.x}px) translateY(${start.y}px)
+     `;
 
+     console.log({start,end,type,direction,})
+     
   const style: Size = isHorizontal
     ? {
         width: Math.abs(end.x - start.x),
@@ -56,11 +57,11 @@ export const ArrowSection: React.FC<ArrowSectionProps> = ({
         height: Math.abs(end.y - start.y),
         width: cellSize + gapSize,
       };
-
-  let arrow: JSX.Element;
+      
+  let arrowSection: JSX.Element;
   switch (type) {
     case ArrowType.NonDirectional:
-      arrow = (
+      arrowSection = (
         <div data-testid="ndArrow" className={classNames} style={style}>
           {isHorizontal ? <ArrowBody /> : <ArrowBodyVertical />}
         </div>
@@ -68,7 +69,7 @@ export const ArrowSection: React.FC<ArrowSectionProps> = ({
       break;
 
     case ArrowType.BiDirectional:
-      arrow = (
+      arrowSection = (
         <div data-testid="bdArrow" className={classNames} style={style}>
           {isHorizontal ? (
             <>
@@ -88,7 +89,7 @@ export const ArrowSection: React.FC<ArrowSectionProps> = ({
       break;
 
     case ArrowType.Directional:
-      arrow = (
+      arrowSection = (
         <div data-testid="dArrow" className={classNames} style={style}>
           {isHorizontal ? (
             <>
@@ -105,10 +106,9 @@ export const ArrowSection: React.FC<ArrowSectionProps> = ({
       );
   }
 
-  // Apply shadow around arrow
   return (
-    <div className={styles.shadow} style={{ transform }}>
-      {arrow}
+    <div className={styles.arrowSection} style={{ transform }}>
+      {arrowSection}
     </div>
   );
 };

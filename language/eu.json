@@ -4,7 +4,7 @@
     "context-menu_arrow-bi-directional": "Alde bietako gezia",
     "context-menu_arrow-non-directional": "Lerro bakarra",
     "dialog_close": "Itxiera mezua",
-    "draggable_delete-confirmation": "Ziur zaude elementu hau ezabatu nahi duzula?",
+    "draggable_delete-item-confirmation": "Ziur zaude elementu hau ezabatu nahi duzula?",
     "draggable_delete-positive": "Ezabatu elementua",
     "draggable_delete-negative": "Utzi",
     "draggable_not-selected": "Sakatu enter aukeratzeko",

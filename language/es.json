@@ -6,7 +6,7 @@
     "context-menu_arrow-bi-directional": "Flecha de dos lados",
     "context-menu_arrow-non-directional": "Línea sencilla",
     "dialog_close": "Diálogo para Cerrar",
-    "draggable_delete-confirmation": "¿Está seguro de querer eliminar este elemento?",
+    "draggable_delete-item-confirmation": "¿Está seguro de querer eliminar este elemento?",
     "draggable_delete-positive": "Eliminar elemento",
     "draggable_delete-negative": "Cancelar",
     "draggable_selected": "Presione las teclas de flechas para mover. Presione Escape para des-seleccionar.",

@@ -87,13 +87,12 @@ let withItemsItems: Array<TopicMapItemType> = [
 let withItemsArrows: Array<ArrowItemType> = [
   {
     id: "4",
-    xPercentagePosition: 35,
-    yPercentagePosition: 40,
-    widthPercentage: 15,
-    heightPercentage: 0,
     arrowDirection: ArrowDirection.Right,
     arrowType: ArrowType.Directional,
-    label: "",
+    positions: [
+      { xPercentagePosition: 35, yPercentagePosition: 41.5 },
+      { xPercentagePosition: 50, yPercentagePosition: 41.5 },
+    ],
   },
 ];
 
@@ -164,13 +163,12 @@ FullscreenWithItems.args = {
   initialArrowItems: [
     {
       id: "4",
-      xPercentagePosition: 35,
-      yPercentagePosition: 50,
-      widthPercentage: 15,
-      heightPercentage: 1,
       arrowDirection: ArrowDirection.Right,
       arrowType: ArrowType.Directional,
-      label: "",
+      positions: [
+        { xPercentagePosition: 35, yPercentagePosition: 41.5 },
+        { xPercentagePosition: 50, yPercentagePosition: 41.5 },
+      ],
     },
   ],
 };

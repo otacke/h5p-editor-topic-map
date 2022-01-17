@@ -15,6 +15,7 @@ import { ContextMenuAction } from "../../types/ContextMenuAction";
 import { Dialog } from "../Dialog/Dialog";
 import { ScaleHandles } from "../ScaleHandles/ScaleHandles";
 import styles from "./Draggable.module.scss";
+import { preventDefault } from "../../utils/event.utils";
 
 const labelTexts = {
   selected: t("draggable_selected"),
@@ -34,7 +35,7 @@ export type DraggableProps = {
   occupiedCells: Array<OccupiedCell>;
   isPreview: boolean;
   deleteItem: (item: string) => void;
-  setSelectedItem: (newItem: string | null) => void;
+  setSelectedItem: (itemId: string | null) => void;
   selectedItem: string | null;
   startResize: (
     directionLock:
@@ -50,8 +51,6 @@ export type DraggableProps = {
   mouseOutsideGrid: boolean;
   editItem: (id: string) => void;
   showScaleHandles: boolean;
-  isArrow: boolean;
-  updateArrowType?: (type: ArrowType, item: string) => void;
 };
 
 export const Draggable: React.FC<DraggableProps> = ({
@@ -74,11 +73,8 @@ export const Draggable: React.FC<DraggableProps> = ({
   mouseOutsideGrid,
   editItem,
   showScaleHandles,
-  isArrow,
-  updateArrowType,
 }) => {
   const [isDragging, setIsDragging] = React.useState(false);
-  const [isSelected, setIsSelected] = React.useState(selectedItem === id);
   const [labelText, setLabelText] = React.useState(labelTexts.notSelected);
   const [pointerStartPosition, setPointerStartPosition] =
     React.useState<Position | null>();
@@ -98,7 +94,7 @@ export const Draggable: React.FC<DraggableProps> = ({
     React.useState<Position>(position);
   const [isResizing, setIsResizing] = React.useState<boolean>();
   const [showDeleteConfirmationDialog, setShowDeleteConfirmationDialog] =
-    React.useState<boolean>(false);
+    React.useState(false);
 
   // Update Draggable's size whenever the container's size changes
   React.useEffect(
@@ -138,12 +134,9 @@ export const Draggable: React.FC<DraggableProps> = ({
     width,
   ]);
 
-  const elementRef = React.useRef<HTMLDivElement>(null);
-
   const startDrag = React.useCallback(
     (event: React.MouseEvent | React.TouchEvent) => {
       setIsDragging(true);
-      setIsSelected(true);
       setSelectedItem(id);
 
       const { x, y } = getPointerPositionFromEvent(event);
@@ -154,11 +147,6 @@ export const Draggable: React.FC<DraggableProps> = ({
       });
     },
     [setSelectedItem, id, position],
-  );
-
-  const getNewPosition = React.useCallback(
-    (x: number, y: number) => ({ x, y }),
-    [],
   );
 
   const getClosestValidXPosition = React.useCallback(
@@ -207,10 +195,10 @@ export const Draggable: React.FC<DraggableProps> = ({
     const closestValidYPosition = getClosestValidYPosition(y);
 
     if (closestValidXPosition != null && closestValidYPosition != null) {
-      const newPosition = getNewPosition(
-        closestValidXPosition,
-        closestValidYPosition,
-      );
+      const newPosition = {
+        x: closestValidXPosition,
+        y: closestValidYPosition,
+      };
 
       if (checkIfPositionIsFree(newPosition)) {
         setPosition(newPosition);
@@ -227,7 +215,6 @@ export const Draggable: React.FC<DraggableProps> = ({
     position,
     getClosestValidXPosition,
     getClosestValidYPosition,
-    getNewPosition,
     checkIfPositionIsFree,
     updatePosition,
     previousPosition,
@@ -250,10 +237,10 @@ export const Draggable: React.FC<DraggableProps> = ({
 
       const { x, y } = getPointerPositionFromEvent(event);
 
-      const newPosition = getNewPosition(
-        x - pointerStartPosition.x,
-        y - pointerStartPosition.y,
-      );
+      const newPosition = {
+        x: x - pointerStartPosition.x,
+        y: y - pointerStartPosition.y,
+      };
 
       setPosition(newPosition);
     },
@@ -262,18 +249,14 @@ export const Draggable: React.FC<DraggableProps> = ({
       isDragging,
       pointerStartPosition,
       mouseOutsideGrid,
-      getNewPosition,
       stopDrag,
     ],
   );
 
-  const preventDefault = React.useCallback((event: React.DragEvent) => {
-    event.preventDefault();
-  }, []);
-
   React.useEffect(() => {
+    const isSelected = selectedItem === id;
     setLabelText(isSelected ? labelTexts.selected : labelTexts.notSelected);
-  }, [isSelected]);
+  }, [id, selectedItem]);
 
   const horizontalScaleHandleLabelText = "";
   const verticalScaleHandleLabelText = "";
@@ -298,9 +281,10 @@ export const Draggable: React.FC<DraggableProps> = ({
     setIsResizing(false);
   }, [stopDrag]);
 
-  const checkIfRightSideOfGrid = React.useCallback(() => {
-    return position.x > gridSize.width / 2;
-  }, [gridSize.width, position.x]);
+  const isRightSideOfGrid = React.useMemo(
+    () => position.x > gridSize.width / 2,
+    [gridSize.width, position.x],
+  );
 
   const confirmDeletion = React.useCallback(() => {
     deleteItem(id);
@@ -324,39 +308,8 @@ export const Draggable: React.FC<DraggableProps> = ({
       onClick: () => setShowDeleteConfirmationDialog(true),
     };
 
-    let actions: Array<ContextMenuAction>;
-    if (isArrow && updateArrowType) {
-      const changeToDirectionalArrowAction: ContextMenuAction = {
-        icon: ContextMenuButtonType.ArrowDirectional,
-        label: t("context-menu_arrow-directional"),
-        onClick: () => updateArrowType(ArrowType.Directional, id),
-      };
-
-      const changeToBiDirectionalArrowAction: ContextMenuAction = {
-        icon: ContextMenuButtonType.ArrowBiDirectional,
-        label: t("context-menu_arrow-bi-directional"),
-        onClick: () => updateArrowType(ArrowType.BiDirectional, id),
-      };
-
-      const changeToNonDirectionalArrowAction: ContextMenuAction = {
-        icon: ContextMenuButtonType.ArrowNonDirectional,
-        label: t("context-menu_arrow-non-directional"),
-        onClick: () => updateArrowType(ArrowType.NonDirectional, id),
-      };
-
-      actions = [
-        editAction,
-        changeToDirectionalArrowAction,
-        changeToBiDirectionalArrowAction,
-        changeToNonDirectionalArrowAction,
-        deleteAction,
-      ];
-    } else {
-      actions = [editAction, deleteAction];
-    }
-
-    return actions;
-  }, [editItem, id, isArrow, updateArrowType]);
+    return [editAction, deleteAction];
+  }, [editItem, id]);
 
   /**
    * This offset is used to fix some of the floating point errors
@@ -366,7 +319,6 @@ export const Draggable: React.FC<DraggableProps> = ({
 
   return (
     <div
-      ref={elementRef}
       role="button"
       tabIndex={0}
       /* Use draggable="true" to benefit from screen readers' understanding of the property */
@@ -405,11 +357,11 @@ export const Draggable: React.FC<DraggableProps> = ({
       <ContextMenu
         actions={contextMenuActions}
         show={selectedItem === id}
-        turnLeft={checkIfRightSideOfGrid()}
+        turnLeft={isRightSideOfGrid}
       />
       <Dialog
         isOpen={showDeleteConfirmationDialog}
-        title={t("draggable_delete-confirmation")}
+        title={t("draggable_delete-item-confirmation")}
         onOpenChange={setShowDeleteConfirmationDialog}
       >
         <div className={styles.deleteConfirmationButtons}>

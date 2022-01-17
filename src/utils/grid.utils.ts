@@ -77,8 +77,10 @@ export const updateArrowItem = (
   updatedItem: ArrowItemType,
   width: number,
   height: number,
-  { newPosition, newSize }: { newPosition?: Position; newSize?: Size },
-  type?: ArrowType,
+  {
+    newPositions,
+    newType,
+  }: { newPositions?: Array<Position>; newType?: ArrowType },
 ): Array<ArrowItemType> => {
   const newItems = items.map((item: ArrowItemType) => {
     const isCorrectItem = item.id === updatedItem.id;
@@ -91,18 +93,15 @@ export const updateArrowItem = (
       ...item,
     };
 
-    if (type != null) {
-      newItem.arrowType = type;
+    if (newType) {
+      newItem.arrowType = newType;
     }
 
-    if (newPosition) {
-      newItem.xPercentagePosition = calculateXPercentage(newPosition.x, width);
-      newItem.yPercentagePosition = calculateYPercentage(newPosition.y, height);
-    }
-
-    if (newSize) {
-      newItem.widthPercentage = calculateXPercentage(newSize.width, width);
-      newItem.heightPercentage = calculateYPercentage(newSize.height, height);
+    if (newPositions) {
+      newItem.positions = newPositions.map(({ x, y }) => ({
+        xPercentagePosition: calculateXPercentage(x, width),
+        yPercentagePosition: calculateYPercentage(y, height),
+      }));
     }
 
     return newItem;
@@ -359,13 +358,9 @@ export const createArrowItem = (
 
   const item: ArrowItemType = {
     id,
-    xPercentagePosition: 0,
-    yPercentagePosition: 0,
-    widthPercentage: 0,
-    heightPercentage: 0,
     arrowDirection: arrowHeadDirection,
     arrowType: ArrowType.Directional,
-    label: "",
+    positions: [],
   };
 
   return item;

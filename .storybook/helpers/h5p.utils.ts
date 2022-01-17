@@ -1,8 +1,11 @@
+import { ArrowDirection } from "../../src/types/ArrowDirection";
+import { ArrowType } from "../../src/types/ArrowType";
 import { H5PField } from "../../src/types/h5p/H5PField";
 import { H5PFieldType } from "../../src/types/h5p/H5PFieldType";
 import { H5PForm } from "../../src/types/h5p/H5PForm";
+import { Params } from "../../src/types/h5p/Params";
 
-export const params = {
+export const params: Params = {
   topicMapItems: [
     {
       heightPercentage: 100,
@@ -24,6 +27,17 @@ export const params = {
       xPercentagePosition: 0,
       yPercentagePosition: 0,
       backgroundImage: { path: "", alt: "" },
+    },
+  ],
+  arrowItems: [
+    {
+      arrowDirection: ArrowDirection.Right,
+      arrowType: ArrowType.Directional,
+      id: "arrow-1",
+      positions: [
+        { xPercentagePosition: 50, yPercentagePosition: 100 },
+        { xPercentagePosition: 100, yPercentagePosition: 100 },
+      ],
     },
   ],
 };

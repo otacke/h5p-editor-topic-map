@@ -25,10 +25,12 @@
   }
 }
 
-.shadow {
+.arrowSection {
   filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
   height: 100%;
+  transition: transform 0.2s ease-out;
   width: 100%;
+  will-change: transform;
 }
 
 $end-offset: 6px;

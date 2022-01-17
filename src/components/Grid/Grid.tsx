@@ -97,6 +97,7 @@ export const Grid: React.FC<GridProps> = ({
   const elementRef = React.useRef<HTMLDivElement>(null);
 
   const setSelected = React.useCallback((newItem: string | null) => {
+    console.log("selected item id: ", {newItem})
     setSelectedItem(newItem);
   }, []);
 
@@ -233,15 +234,22 @@ export const Grid: React.FC<GridProps> = ({
       );
 
       const newItem = createArrowItem(arrowHeadDirection);
-      newItem.xPercentagePosition = xPercentagePosition;
-      newItem.widthPercentage = widthPercentage;
-      newItem.yPercentagePosition = yPercentagePosition;
-      newItem.heightPercentage = heightPercentage;
+      newItem.positions.push(
+        {
+          xPercentagePosition,
+          yPercentagePosition,
+        },
+        {
+          xPercentagePosition: xEndPercentagePosition,
+          yPercentagePosition: yEndPercentagePosition,
+        },
+      );
 
       const newPosition = {
         x: scaleX(xPercentagePosition, size.width),
         y: scaleY(yPercentagePosition, size.height),
       };
+
       const newSize = {
         width: scaleX(widthPercentage, size.width),
         height: scaleY(heightPercentage, size.height),
@@ -706,8 +714,8 @@ export const Grid: React.FC<GridProps> = ({
     [gapSize, cellSize, items, size, updateItems],
   );
 
-  const updateArrowPosition = React.useCallback(
-    (updatedItem: ArrowItemType, newPosition: Position) => {
+  const updateArrowPositions = React.useCallback(
+    (updatedItem: ArrowItemType, newPositions: Array<Position>) => {
       if (!size) {
         throw new Error("Grid has no size.");
       }
@@ -718,7 +726,7 @@ export const Grid: React.FC<GridProps> = ({
         size.width,
         size.height,
         {
-          newPosition,
+          newPositions,
         },
       );
 
@@ -770,8 +778,7 @@ export const Grid: React.FC<GridProps> = ({
         updatedItem,
         size.width,
         size.height,
-        {},
-        type,
+        { newType: type },
       );
 
       updateArrowItems(newItems);
@@ -816,7 +823,6 @@ export const Grid: React.FC<GridProps> = ({
         }}
         mouseOutsideGrid={mouseOutsideGrid}
         showScaleHandles
-        isArrow={false}
       >
         <TopicMapItem item={item} />
       </Draggable>
@@ -843,60 +849,47 @@ export const Grid: React.FC<GridProps> = ({
       return null;
     }
 
+    const { width, height } = size;
+
     return arrowItems.map(item => {
-      const isHorizontal =
-        item.arrowDirection === ArrowDirection.Left ||
-        item.arrowDirection === ArrowDirection.Up;
-
-      /* TODO: Fix the height and width according to grid size and gap size */
-      // prettier-ignore
-      const itemWidthPercentage = Math.abs(scaleX(item.widthPercentage + (gapSize * 1.8) / numberOfColumns, size.width));
-      // prettier-ignore
-      const itemHeightPercentage = Math.abs(scaleY(item.heightPercentage + (gapSize * 2.1) / numberOfRows, size.height));
-
-      const arrowPositions = isHorizontal
-        ? [
-            { x: itemWidthPercentage, y: itemHeightPercentage },
-            { x: 0, y: 0 },
-          ]
-        : [
-            { x: 0, y: 0 },
-            { x: itemWidthPercentage, y: itemHeightPercentage },
-          ];
+      const positions = item.positions.map(
+        ({ xPercentagePosition, yPercentagePosition }) => ({
+          x: scaleX(xPercentagePosition, width),
+          y: scaleY(yPercentagePosition, height),
+        }),
+      );
 
       return (
-        <Draggable
+        <Arrow
           key={item.id}
           id={item.id}
-          initialXPosition={scaleX(item.xPercentagePosition, size.width)}
-          initialYPosition={scaleY(item.yPercentagePosition, size.height)}
-          updatePosition={newPosition => updateArrowPosition(item, newPosition)}
-          initialWidth={Math.abs(scaleX(item.widthPercentage, size.width))}
-          initialHeight={Math.abs(scaleY(item.heightPercentage, size.height))}
+          // updatePosition={newPosition => updateItemPosition(item, newPosition)}
           gapSize={gapSize}
           cellSize={cellSize}
           gridSize={size}
-          occupiedCells={occupiedCells}
-          isPreview={isDragging}
+          // occupiedCells={occupiedCells}
+          // isPreview={isDragging}
           editItem={setEditedItem}
           deleteItem={deleteArrow}
-          setSelectedItem={setSelected}
-          selectedItem={selectedItem}
-          startResize={directionLock => {
-            console.info("resize", directionLock);
-          }}
-          mouseOutsideGrid={mouseOutsideGrid}
-          showScaleHandles={false}
+          setSelectedItemId={setSelected}
+          selectedItemId={selectedItem}
+          // startResize={directionLock => {
+          //   const x = Math.floor(
+          //     (item.xPercentagePosition / 100) * numberOfColumns,
+          //   );
+          //   const y = Math.floor((item.yPercentagePosition / 100) * numberOfRows);
+          //   const cellIndex = x + y * numberOfColumns;
+
+          //   setBoxStartIndex(cellIndex);
+          //   setResizedItemId(item.id);
+          //   setResizeDirectionLock(directionLock);
+          // }}
+          positions={positions}
+          type={item.arrowType}
           updateArrowType={updateArrowType}
-          isArrow
-        >
-          <Arrow
-            positions={arrowPositions}
-            type={item.arrowType}
-            cellSize={cellSize}
-            gapSize={gapSize}
-          />
-        </Draggable>
+          mouseOutsideGrid={mouseOutsideGrid}
+          isPreview={isDragging}
+        />
       );
     });
   }, [
@@ -904,17 +897,13 @@ export const Grid: React.FC<GridProps> = ({
     cellSize,
     size,
     arrowItems,
-    numberOfColumns,
-    numberOfRows,
-    occupiedCells,
-    isDragging,
     setEditedItem,
     deleteArrow,
     setSelected,
     selectedItem,
-    mouseOutsideGrid,
     updateArrowType,
-    updateArrowPosition,
+    mouseOutsideGrid,
+    isDragging,
   ]);
 
   const resize = React.useCallback(() => {
