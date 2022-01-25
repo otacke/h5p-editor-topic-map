@@ -1,5 +1,5 @@
 import * as React from "react";
-import { t } from "../../h5p/H5P.util";
+import { useState, useEffect } from "react";
 import { ArrowType } from "../../types/ArrowType";
 import { OccupiedCell } from "../../types/OccupiedCell";
 import { Position } from "../../types/Position";
@@ -16,11 +16,7 @@ import { Dialog } from "../Dialog/Dialog";
 import { ScaleHandles } from "../ScaleHandles/ScaleHandles";
 import styles from "./Draggable.module.scss";
 import { ResizeDirection } from "../../types/ResizeDirection";
-
-const labelTexts = {
-  selected: t("draggable_selected"),
-  notSelected: t("draggable_not-selected"),
-};
+import { useT } from "../../hooks/useH5PTranslation";
 
 export type DraggableProps = {
   id: string;
@@ -68,31 +64,36 @@ export const Draggable: React.FC<DraggableProps> = ({
   isArrow,
   updateArrowType,
 }) => {
-  const [isDragging, setIsDragging] = React.useState(false);
-  const [isSelected, setIsSelected] = React.useState(selectedItem === id);
-  const [labelText, setLabelText] = React.useState(labelTexts.notSelected);
+  const labelSelected = useT("draggable_selected");
+  const labelNotSelected = useT("draggable_not-selected");
+
+  const draggableDeletePositive = useT("draggable_delete-positive");
+  const draggableDeleteNegative = useT("draggable_delete-negative");
+
+  const [isDragging, setIsDragging] = useState(false);
+  const [isSelected, setIsSelected] = useState(selectedItem === id);
+  const [labelText, setLabelText] = useState(labelNotSelected);
   const [pointerStartPosition, setPointerStartPosition] =
-    React.useState<Position | null>();
-  const [{ width, height }, setSize] = React.useState<Size>({
+    useState<Position | null>();
+  const [{ width, height }, setSize] = useState<Size>({
     // prettier-ignore
     width: calculateClosestValidSizeComponent(initialWidth, gapSize, cellSize, gridSize.width),
     // prettier-ignore
     height: calculateClosestValidSizeComponent(initialHeight, gapSize, cellSize, gridSize.height),
   });
-  const [position, setPosition] = React.useState<Position>({
+  const [position, setPosition] = useState<Position>({
     // prettier-ignore
     x: calculateClosestValidPositionComponent(initialXPosition, gapSize, cellSize, gridSize.width, width),
     // prettier-ignore
     y: calculateClosestValidPositionComponent(initialYPosition, gapSize, cellSize, gridSize.height, height),
   });
-  const [previousPosition, setPreviousPosition] =
-    React.useState<Position>(position);
-  const [isResizing, setIsResizing] = React.useState<boolean>();
+  const [previousPosition, setPreviousPosition] = useState(position);
+  const [isResizing, setIsResizing] = useState<boolean>();
   const [showDeleteConfirmationDialog, setShowDeleteConfirmationDialog] =
-    React.useState<boolean>(false);
+    useState(false);
 
   // Update Draggable's size whenever the container's size changes
-  React.useEffect(
+  useEffect(
     () =>
       setSize({
         // prettier-ignore
@@ -111,7 +112,7 @@ export const Draggable: React.FC<DraggableProps> = ({
   );
 
   // Update Draggable's position whenever the container's size changes
-  React.useEffect(() => {
+  useEffect(() => {
     setPosition({
       // prettier-ignore
       x: calculateClosestValidPositionComponent(initialXPosition, gapSize, cellSize, gridSize.width, width),
@@ -262,14 +263,11 @@ export const Draggable: React.FC<DraggableProps> = ({
     event.preventDefault();
   }, []);
 
-  React.useEffect(() => {
-    setLabelText(isSelected ? labelTexts.selected : labelTexts.notSelected);
-  }, [isSelected]);
+  useEffect(() => {
+    setLabelText(isSelected ? labelSelected : labelNotSelected);
+  }, [isSelected, labelNotSelected, labelSelected]);
 
-  const horizontalScaleHandleLabelText = "";
-  const verticalScaleHandleLabelText = "";
-
-  React.useEffect(() => {
+  useEffect(() => {
     /* 
       These are tied to `window`, because the
       cursor might not be on top of the element
@@ -305,13 +303,13 @@ export const Draggable: React.FC<DraggableProps> = ({
   const contextMenuActions: Array<ContextMenuAction> = React.useMemo(() => {
     const editAction: ContextMenuAction = {
       icon: ContextMenuButtonType.Edit,
-      label: t("context-menu_edit"),
+      labelKey: "context-menu_edit",
       onClick: () => editItem(id),
     };
 
     const deleteAction: ContextMenuAction = {
       icon: ContextMenuButtonType.Delete,
-      label: t("context-menu_delete"),
+      labelKey: "context-menu_delete",
       onClick: () => setShowDeleteConfirmationDialog(true),
     };
 
@@ -319,19 +317,19 @@ export const Draggable: React.FC<DraggableProps> = ({
     if (isArrow && updateArrowType) {
       const changeToDirectionalArrowAction: ContextMenuAction = {
         icon: ContextMenuButtonType.ArrowDirectional,
-        label: t("context-menu_arrow-directional"),
+        labelKey: "context-menu_arrow-directional",
         onClick: () => updateArrowType(ArrowType.Directional, id),
       };
 
       const changeToBiDirectionalArrowAction: ContextMenuAction = {
         icon: ContextMenuButtonType.ArrowBiDirectional,
-        label: t("context-menu_arrow-bi-directional"),
+        labelKey: "context-menu_arrow-bi-directional",
         onClick: () => updateArrowType(ArrowType.BiDirectional, id),
       };
 
       const changeToNonDirectionalArrowAction: ContextMenuAction = {
         icon: ContextMenuButtonType.ArrowNonDirectional,
-        label: t("context-menu_arrow-non-directional"),
+        labelKey: "context-menu_arrow-non-directional",
         onClick: () => updateArrowType(ArrowType.NonDirectional, id),
       };
 
@@ -389,8 +387,6 @@ export const Draggable: React.FC<DraggableProps> = ({
           setIsResizing={setIsResizing}
           startResize={startResize}
           stopResize={stopResize}
-          verticalScaleHandleLabelText={verticalScaleHandleLabelText}
-          horizontalScaleHandleLabelText={horizontalScaleHandleLabelText}
         />
       )}
       <ContextMenu
@@ -400,7 +396,7 @@ export const Draggable: React.FC<DraggableProps> = ({
       />
       <Dialog
         isOpen={showDeleteConfirmationDialog}
-        title={t("draggable_delete-confirmation")}
+        titleKey="draggable_delete-confirmation"
         onOpenChange={setShowDeleteConfirmationDialog}
       >
         <div className={styles.deleteConfirmationButtons}>
@@ -409,14 +405,14 @@ export const Draggable: React.FC<DraggableProps> = ({
             className={styles.deleteConfirmationPositive}
             onClick={confirmDeletion}
           >
-            {t("draggable_delete-positive")}
+            {draggableDeletePositive}
           </button>
           <button
             type="button"
             className={styles.deleteConfirmationNegative}
             onClick={denyDeletion}
           >
-            {t("draggable_delete-negative")}
+            {draggableDeleteNegative}
           </button>
         </div>
       </Dialog>

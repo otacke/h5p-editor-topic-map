@@ -1,5 +1,5 @@
 import * as React from "react";
-import { t } from "../../h5p/H5P.util";
+import { useT } from "../../hooks/useH5PTranslation";
 import { ColorTheme } from "../../types/ColorTheme";
 import { themes } from "../../utils/theme.utils";
 import styles from "./ThemePicker.module.scss";
@@ -28,7 +28,7 @@ export const ThemePicker: React.FC<ThemePickerProps> = ({
 
   const colorThemes = React.useMemo(
     () =>
-      themes.map(({ label, value }) => (
+      themes.map(({ labelKey: label, value }) => (
         <button
           type="button"
           key={value}
@@ -44,7 +44,7 @@ export const ThemePicker: React.FC<ThemePickerProps> = ({
     [activeTheme, renderColorCircles, setTheme],
   );
 
-  const themePickerLabel = t("theme-picker_label");
+  const themePickerLabel = useT("theme-picker_label");
 
   return (
     <>

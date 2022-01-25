@@ -11,7 +11,7 @@ export default {
   args: {
     icon: ToolbarButtonType.MapColor,
     onClick: () => console.info("Toolbar button clicked"),
-    label: "Map Color",
+    labelKey: "toolbar-button-type_map-color",
     showActive: false,
     active: false,
   },

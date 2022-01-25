@@ -9,23 +9,25 @@ import {
 } from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import styles from "./Dialog.module.scss";
-import { t } from "../../h5p/H5P.util";
+import { TranslationKey } from "../../types/TranslationKey";
+import { useT } from "../../hooks/useH5PTranslation";
 
 export type DialogProps = {
   isOpen: boolean;
-  title: string;
+  titleKey: TranslationKey;
   description?: string | undefined;
   onOpenChange: (open: boolean) => void;
 };
 
 export const Dialog: React.FC<DialogProps> = ({
   isOpen,
-  title,
+  titleKey,
   description,
   onOpenChange,
   children,
 }) => {
-  const closeButtonLabel = t("dialog_close");
+  const title = useT(titleKey);
+  const closeButtonLabel = useT("dialog_close");
 
   return (
     <Root open={isOpen} onOpenChange={onOpenChange}>

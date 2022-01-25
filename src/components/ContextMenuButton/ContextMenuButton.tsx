@@ -2,18 +2,22 @@ import * as React from "react";
 import styles from "./ContextMenuButton.module.scss";
 import { Icon } from "../Icons/Icons";
 import { ContextMenuButtonType } from "../ContextMenu/ContextMenu";
+import { TranslationKey } from "../../types/TranslationKey";
+import { useT } from "../../hooks/useH5PTranslation";
 
 export type ContextMenuButtonProps = {
   icon: ContextMenuButtonType;
-  label: string;
+  labelKey: TranslationKey;
   onClick: React.MouseEventHandler;
 };
 
 export const ContextMenuButton: React.FC<ContextMenuButtonProps> = ({
   icon,
-  label,
+  labelKey,
   onClick,
 }) => {
+  const label = useT(labelKey);
+
   return (
     <button
       type="button"

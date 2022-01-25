@@ -17,6 +17,8 @@
     "global_theme-3": "Red",
     "grid-indicator_label": "Click and drag to create a new element",
     "map-editor-view_item-dialog-title": "Item",
+    "scale-handle_horizontal": "Scale horizontally",
+    "scale-handle_vertical": "Scale vertically",
     "semantics-form_save": "Save",
     "theme-picker_label": "Color theme",
     "toolbar-button-type_cannot-create-arrow": "There must be at least two boxes before an arrow can be added",

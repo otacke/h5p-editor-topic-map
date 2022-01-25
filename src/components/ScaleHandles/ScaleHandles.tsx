@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useT } from "../../hooks/useH5PTranslation";
 import { ResizeDirection } from "../../types/ResizeDirection";
 import { ScaleHandle } from "../ScaleHandle/ScaleHandle";
 
@@ -6,17 +7,16 @@ export type ScaleHandlesProps = {
   setIsResizing: (isResizing: boolean) => void;
   startResize: (handlePosition: ResizeDirection) => void;
   stopResize: () => void;
-  verticalScaleHandleLabelText: string;
-  horizontalScaleHandleLabelText: string;
 };
 
 export const ScaleHandles: React.FC<ScaleHandlesProps> = ({
   setIsResizing,
   startResize,
   stopResize,
-  verticalScaleHandleLabelText,
-  horizontalScaleHandleLabelText,
 }) => {
+  const verticalScaleHandleLabelText = useT("scale-handle_vertical");
+  const horizontalScaleHandleLabelText = useT("scale-handle_horizontal");
+
   return (
     <>
       <ScaleHandle

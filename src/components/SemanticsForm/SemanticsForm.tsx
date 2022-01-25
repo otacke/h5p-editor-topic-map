@@ -1,9 +1,10 @@
 import * as React from "react";
 import styles from "./SemanticsForm.module.scss";
-import { H5PEditor, t } from "../../h5p/H5P.util";
+import { H5PEditor } from "../../h5p/H5P.util";
 import { H5PField } from "../../types/h5p/H5PField";
 import { H5PForm } from "../../types/h5p/H5PForm";
 import { Params } from "../../types/h5p/Params";
+import { useT } from "../../hooks/useH5PTranslation";
 
 export type SemanticsFormProps = {
   fields: Array<H5PField>;
@@ -21,7 +22,7 @@ export const SemanticsForm: React.FC<SemanticsFormProps> = ({
   onSave,
 }) => {
   const generatedFormRef = React.useRef<HTMLDivElement>(null);
-  const saveLabel = t("semantics-form_save");
+  const saveLabel = useT("semantics-form_save");
   const [hasRendered, setHasRendered] = React.useState(false);
 
   React.useEffect(() => {

@@ -8,7 +8,7 @@ const componentMeta: ComponentMeta<typeof Dialog> = {
   component: Dialog,
   args: {
     onOpenChange: console.info,
-    title: "Title",
+    titleKey: "map-editor-view_item-dialog-title",
     isOpen: true,
     description:
       "When things happen - enjoy them. They're little gifts. Just let this happen. We just let this flow right out of our minds. This is a fantastic little painting. A tree needs to be your friend if you're going to paint him.",

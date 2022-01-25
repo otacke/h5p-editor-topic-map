@@ -32,11 +32,11 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
     <div
       className={`${styles.contextMenu} ${className} ${show && styles.show}`}
     >
-      {actions.map(({ icon, label, onClick }) => (
+      {actions.map(({ icon, labelKey, onClick }) => (
         <ContextMenuButton
-          key={label}
+          key={labelKey}
           icon={icon}
-          label={label}
+          labelKey={labelKey}
           onClick={onClick}
         />
       ))}

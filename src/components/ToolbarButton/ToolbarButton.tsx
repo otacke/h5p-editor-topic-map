@@ -2,10 +2,12 @@ import * as React from "react";
 import styles from "./ToolbarButton.module.scss";
 import { Icon } from "../Icons/Icons";
 import { ToolbarButtonType } from "../Toolbar/Toolbar";
+import { TranslationKey } from "../../types/TranslationKey";
+import { useT } from "../../hooks/useH5PTranslation";
 
 export type ToolbarButtonProps = {
   icon: ToolbarButtonType;
-  label: string;
+  labelKey: TranslationKey;
   onClick: React.MouseEventHandler;
   showActive: boolean;
   active: boolean;
@@ -14,12 +16,14 @@ export type ToolbarButtonProps = {
 
 export const ToolbarButton: React.FC<ToolbarButtonProps> = ({
   icon,
-  label,
+  labelKey,
   onClick,
   showActive,
   active,
   isDisabled,
 }) => {
+  const label = useT(labelKey);
+  
   return (
     <button
       type="button"

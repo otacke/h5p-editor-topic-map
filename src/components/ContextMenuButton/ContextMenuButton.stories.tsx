@@ -11,7 +11,7 @@ export default {
   args: {
     icon: ContextMenuButtonType.Delete,
     onClick: () => console.info("Toolbar button clicked"),
-    label: "Delete",
+    labelKey: "context-menu_delete",
   },
 } as ComponentMeta<typeof ContextMenuButton>;
 

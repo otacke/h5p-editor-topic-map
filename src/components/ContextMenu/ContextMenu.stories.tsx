@@ -11,13 +11,13 @@ export default {
     actions: [
       {
         icon: ContextMenuButtonType.Edit,
-        label: "Edit",
+        labelKey: "context-menu_edit",
         // eslint-disable-next-line no-alert
         onClick: () => alert("Edit"),
       },
       {
         icon: ContextMenuButtonType.Delete,
-        label: "Delete",
+        labelKey: "context-menu_delete",
         // eslint-disable-next-line no-alert
         onClick: () => alert("Delete"),
       },
@@ -47,33 +47,33 @@ ManyActions.args = {
   actions: [
     {
       icon: ContextMenuButtonType.Edit,
-      label: "Edit",
+      labelKey: "context-menu_edit",
       // eslint-disable-next-line no-alert
       onClick: () => alert("Edit"),
     },
     {
       icon: ContextMenuButtonType.ArrowDirectional,
-      label: "Directional arrow",
+      labelKey: "context-menu_arrow-directional",
       // eslint-disable-next-line no-alert
       onClick: () => alert("Directional arrow"),
     },
 
     {
       icon: ContextMenuButtonType.ArrowBiDirectional,
-      label: "Bi-directional arrow",
+      labelKey: "context-menu_arrow-bi-directional",
       // eslint-disable-next-line no-alert
       onClick: () => alert("Bi-directional arrow"),
     },
 
     {
       icon: ContextMenuButtonType.ArrowNonDirectional,
-      label: "Arrow without direction",
+      labelKey: "context-menu_arrow-non-directional",
       // eslint-disable-next-line no-alert
       onClick: () => alert("Arrow without direction"),
     },
     {
       icon: ContextMenuButtonType.Delete,
-      label: "Delete",
+      labelKey: "context-menu_delete",
       // eslint-disable-next-line no-alert
       onClick: () => alert("Delete"),
     },

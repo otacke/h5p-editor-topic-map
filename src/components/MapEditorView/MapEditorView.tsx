@@ -1,5 +1,4 @@
 import * as React from "react";
-import { t } from "../../h5p/H5P.util";
 import { ArrowItemType } from "../../types/ArrowItemType";
 import { H5PFieldGroup } from "../../types/h5p/H5PField";
 import { H5PForm } from "../../types/h5p/H5PForm";
@@ -61,7 +60,6 @@ export const MapEditorView: React.FC<MapEditorViewProps> = ({
     [setParams],
   );
 
-  const topicMapItemFormDialogTitle = t("map-editor-view_item-dialog-title");
   const backgroundImageField = React.useMemo(() => {
     const bgImgField = getBackgroundImageField(semantics);
 
@@ -100,7 +98,7 @@ export const MapEditorView: React.FC<MapEditorViewProps> = ({
         />
         <Dialog
           isOpen={Boolean(semantics && editedItem)}
-          title={topicMapItemFormDialogTitle}
+          titleKey="map-editor-view_item-dialog-title"
           onOpenChange={isOpen => {
             if (!isOpen) {
               setEditedItem(null);

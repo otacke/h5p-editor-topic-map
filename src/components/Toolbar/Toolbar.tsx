@@ -1,18 +1,11 @@
 import * as React from "react";
-import { t } from "../../h5p/H5P.util";
 import { H5PFieldImage } from "../../types/h5p/H5PField";
 import { H5PForm } from "../../types/h5p/H5PForm";
 import { Params } from "../../types/h5p/Params";
+import { TranslationKey } from "../../types/TranslationKey";
 import { AppearanceDialog } from "../AppearanceDialog/AppearanceDialog";
 import { ToolbarButton } from "../ToolbarButton/ToolbarButton";
 import styles from "./Toolbar.module.scss";
-
-const labelTexts = {
-  mapColor: t("toolbar-button-type_map-color"),
-  createBox: t("toolbar-button-type_create-box"),
-  createArrow: t("toolbar-button-type_create-arrow"),
-  cannotCreateArrow: t("toolbar-button-type_cannot-create-arrow"),
-};
 
 /*
   Name of svg icon should be similar to this,
@@ -43,6 +36,13 @@ export const Toolbar: React.FC<ToolBarProps> = ({
   params,
   parent,
 }) => {
+  const labelTextsKeys: Record<string, TranslationKey> = {
+    mapColor: "toolbar-button-type_map-color",
+    createBox: "toolbar-button-type_create-box",
+    createArrow: "toolbar-button-type_create-arrow",
+    cannotCreateArrow: "toolbar-button-type_cannot-create-arrow",
+  };
+
   const [activeButton, setActiveButton] = React.useState(activeTool);
   const [appearanceDialogOpen, setAppearanceDialogOpen] = React.useState(false);
 
@@ -72,7 +72,7 @@ export const Toolbar: React.FC<ToolBarProps> = ({
     <div className={styles.toolbar}>
       <ToolbarButton
         icon={ToolbarButtonType.MapColor}
-        label={labelTexts.mapColor}
+        labelKey={labelTextsKeys.mapColor}
         onClick={() => setAppearanceDialogOpen(wasOpen => !wasOpen)}
         active={false}
         showActive={false}
@@ -80,7 +80,7 @@ export const Toolbar: React.FC<ToolBarProps> = ({
       />
       <ToolbarButton
         icon={ToolbarButtonType.CreateBox}
-        label={labelTexts.createBox}
+        labelKey={labelTextsKeys.createBox}
         onClick={() => setActive(ToolbarButtonType.CreateBox)}
         active={checkIfActive(ToolbarButtonType.CreateBox)}
         showActive
@@ -88,10 +88,10 @@ export const Toolbar: React.FC<ToolBarProps> = ({
       />
       <ToolbarButton
         icon={ToolbarButtonType.CreateArrow}
-        label={
+        labelKey={
           isArrowButtonDisabled
-            ? labelTexts.cannotCreateArrow
-            : labelTexts.createArrow
+            ? labelTextsKeys.cannotCreateArrow
+            : labelTextsKeys.createArrow
         }
         onClick={() => setActive(ToolbarButtonType.CreateArrow)}
         active={checkIfActive(ToolbarButtonType.CreateArrow)}

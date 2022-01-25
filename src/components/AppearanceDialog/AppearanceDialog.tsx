@@ -1,5 +1,4 @@
 import * as React from "react";
-import { t } from "../../h5p/H5P.util";
 import { ColorTheme } from "../../types/ColorTheme";
 import { H5PFieldImage } from "../../types/h5p/H5PField";
 import { H5PForm } from "../../types/h5p/H5PForm";
@@ -27,8 +26,6 @@ export const AppearanceDialog: React.FC<AppearanceDialogProps> = ({
   parent,
   setIsOpen,
 }) => {
-  const dialogTitle = t("appearance-dialog_title");
-
   const setTheme = (colorTheme: ColorTheme): void => {
     onSave({
       ...params,
@@ -40,7 +37,11 @@ export const AppearanceDialog: React.FC<AppearanceDialogProps> = ({
   };
 
   return (
-    <Dialog title={dialogTitle} isOpen={isOpen} onOpenChange={setIsOpen}>
+    <Dialog
+      titleKey="appearance-dialog_title"
+      isOpen={isOpen}
+      onOpenChange={setIsOpen}
+    >
       <div className={styles.dialogContent}>
         <div className={styles.themePicker}>
           <ThemePicker

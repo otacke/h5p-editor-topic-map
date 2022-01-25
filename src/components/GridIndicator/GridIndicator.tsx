@@ -1,5 +1,5 @@
 import * as React from "react";
-import { t } from "../../h5p/H5P.util";
+import { useT } from "../../hooks/useH5PTranslation";
 import styles from "./GridIndicator.module.scss";
 
 export type GridIndicatorProps = {
@@ -15,7 +15,7 @@ export const GridIndicator: React.FC<GridIndicatorProps> = ({
   index,
   active,
 }) => {
-  const label = t("grid-indicator_label");
+  const label = useT("grid-indicator_label");
   return (
     <button
       type="button"

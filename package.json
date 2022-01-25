@@ -25,6 +25,7 @@
     "@radix-ui/react-icons": "^1.0.3",
     "lodash.intersectionby": "^4.7.0",
     "react": "^17.0.2",
+    "react-async": "^10.0.1",
     "react-dom": "^17.0.2",
     "uuid": "^8.3.2"
   },
