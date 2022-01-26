@@ -67,7 +67,7 @@ Primary.args = {
         label: "Label 3",
         description:
           "You can do anything here - the only pre-requisite is that it makes you happy.",
-          dialogOrDirectLink: "dialog",
+        dialogOrDirectLink: "dialog",
       },
     ],
     arrowItems: [],
