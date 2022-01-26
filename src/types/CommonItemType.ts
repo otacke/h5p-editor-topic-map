@@ -7,6 +7,13 @@ export type CommonItemType = {
 
   description?: string;
   topicImage?: Image;
-
-  dialog?: DialogContent;
-};
+} & (
+  | {
+      dialogOrDirectLink: "dialog";
+      dialog?: DialogContent;
+    }
+  | {
+      dialogOrDirectLink: "directLink";
+      directLink?: string;
+    }
+);

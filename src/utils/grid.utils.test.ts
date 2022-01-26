@@ -28,6 +28,7 @@ describe(resizeItem.name, () => {
       topicImage: { path: "", alt: "" },
       label: "Label",
       description: "",
+      dialogOrDirectLink: "dialog",
     };
 
     const scaleFactor = 0.5;
@@ -41,11 +42,12 @@ describe(resizeItem.name, () => {
       topicImage: { path: "", alt: "" },
       label: "Label",
       description: "",
+      dialogOrDirectLink: "dialog",
     };
 
     const actualItem = resizeItem(item, scaleFactor);
 
-    expect(actualItem).toEqual(expectedItem);
+    expect(actualItem).toEqual<typeof actualItem>(expectedItem);
   });
 
   it("should scale the item down if the scale factor is greater than 1", () => {
@@ -58,6 +60,7 @@ describe(resizeItem.name, () => {
       topicImage: { path: "", alt: "" },
       label: "Label",
       description: "",
+      dialogOrDirectLink: "dialog",
     };
 
     const scaleFactor = 2;
@@ -71,11 +74,12 @@ describe(resizeItem.name, () => {
       topicImage: { path: "", alt: "" },
       label: "Label",
       description: "",
+      dialogOrDirectLink: "dialog",
     };
 
     const actualItem = resizeItem(item, scaleFactor);
 
-    expect(actualItem).toEqual(expectedItem);
+    expect(actualItem).toEqual<typeof actualItem>(expectedItem);
   });
 
   it("should do nothing if the scale factor is 1", () => {
@@ -88,6 +92,7 @@ describe(resizeItem.name, () => {
       topicImage: { path: "", alt: "" },
       label: "Label",
       description: "",
+      dialogOrDirectLink: "dialog",
     };
 
     const scaleFactor = 1;
@@ -101,11 +106,12 @@ describe(resizeItem.name, () => {
       topicImage: { path: "", alt: "" },
       label: "Label",
       description: "",
+      dialogOrDirectLink: "dialog",
     };
 
     const actualItem = resizeItem(item, scaleFactor);
 
-    expect(actualItem).toEqual(expectedItem);
+    expect(actualItem).toEqual<typeof actualItem>(expectedItem);
   });
 
   it("should handle any number", () =>
@@ -123,6 +129,7 @@ describe(resizeItem.name, () => {
             links: [],
           },
           description: "",
+          dialogOrDirectLink: "dialog",
         };
 
         const expectedItem: TopicMapItemType = {
@@ -137,11 +144,12 @@ describe(resizeItem.name, () => {
             links: [],
           },
           description: "",
+          dialogOrDirectLink: "dialog",
         };
 
         const actualItem = resizeItem(item, scaleFactor);
 
-        expect(actualItem).toEqual(expectedItem);
+        expect(actualItem).toEqual<typeof actualItem>(expectedItem);
       }),
       { verbose: true },
     ));
@@ -182,6 +190,7 @@ describe(updateItem.name, () => {
       topicImage: { path: "", alt: "" },
       label: "Label",
       description: "",
+      dialogOrDirectLink: "dialog",
     };
 
     const items: Array<TopicMapItemType> = [
@@ -195,6 +204,7 @@ describe(updateItem.name, () => {
         topicImage: { path: "", alt: "" },
         label: "Label",
         description: "",
+        dialogOrDirectLink: "dialog",
       },
     ];
 
@@ -220,6 +230,7 @@ describe(updateItem.name, () => {
       topicImage: { path: "", alt: "" },
       label: "Label",
       description: "",
+      dialogOrDirectLink: "dialog",
     };
 
     const actualItems = updateItem(items, item, width, height, {
@@ -227,7 +238,7 @@ describe(updateItem.name, () => {
       newSize,
     });
 
-    expect(actualItems).toEqual<Array<TopicMapItemType>>([
+    expect(actualItems).toEqual<typeof actualItems>([
       expectedItem,
       {
         id: "2",
@@ -238,6 +249,7 @@ describe(updateItem.name, () => {
         topicImage: { path: "", alt: "" },
         label: "Label",
         description: "",
+        dialogOrDirectLink: "dialog",
       },
     ]);
   });
@@ -252,6 +264,7 @@ describe(updateItem.name, () => {
       topicImage: { path: "", alt: "" },
       label: "Label",
       description: "",
+      dialogOrDirectLink: "dialog",
     };
 
     const items: Array<TopicMapItemType> = [
@@ -265,6 +278,7 @@ describe(updateItem.name, () => {
         topicImage: { path: "", alt: "" },
         label: "Label",
         description: "",
+        dialogOrDirectLink: "dialog",
       },
     ];
 
@@ -292,6 +306,7 @@ describe(updateItem.name, () => {
       topicImage: { path: "", alt: "" },
       label: "Label",
       description: "",
+      dialogOrDirectLink: "dialog",
     });
 
     expect(items[0]).toEqual<TopicMapItemType>({
@@ -303,6 +318,7 @@ describe(updateItem.name, () => {
       topicImage: { path: "", alt: "" },
       label: "Label",
       description: "",
+      dialogOrDirectLink: "dialog",
     });
 
     expect(items[1]).toEqual<TopicMapItemType>({
@@ -314,6 +330,7 @@ describe(updateItem.name, () => {
       topicImage: { path: "", alt: "" },
       label: "Label",
       description: "",
+      dialogOrDirectLink: "dialog",
     });
   });
 
@@ -327,6 +344,7 @@ describe(updateItem.name, () => {
       topicImage: { path: "", alt: "" },
       label: "Label",
       description: "",
+      dialogOrDirectLink: "dialog",
     };
 
     const items: Array<TopicMapItemType> = [
@@ -343,6 +361,7 @@ describe(updateItem.name, () => {
           links: [],
         },
         description: "",
+        dialogOrDirectLink: "dialog",
       },
     ];
 
@@ -363,13 +382,14 @@ describe(updateItem.name, () => {
       topicImage: { path: "", alt: "" },
       label: "Label",
       description: "",
+      dialogOrDirectLink: "dialog",
     };
 
     const actualItems = updateItem(items, item, width, height, {
       newSize,
     });
 
-    expect(actualItems).toEqual<Array<TopicMapItemType>>([
+    expect(actualItems).toEqual<typeof actualItems>([
       expectedItem,
       {
         id: "2",
@@ -383,6 +403,7 @@ describe(updateItem.name, () => {
           links: [],
         },
         description: "",
+        dialogOrDirectLink: "dialog",
       },
     ]);
   });
@@ -397,6 +418,7 @@ describe(updateItem.name, () => {
       topicImage: { path: "", alt: "" },
       label: "Label",
       description: "",
+      dialogOrDirectLink: "dialog",
     };
 
     const items: Array<TopicMapItemType> = [
@@ -413,6 +435,7 @@ describe(updateItem.name, () => {
           links: [],
         },
         description: "",
+        dialogOrDirectLink: "dialog",
       },
     ];
 
@@ -433,13 +456,14 @@ describe(updateItem.name, () => {
       topicImage: { path: "", alt: "" },
       label: "Label",
       description: "",
+      dialogOrDirectLink: "dialog",
     };
 
     const actualItems = updateItem(items, item, width, height, {
       newPosition,
     });
 
-    expect(actualItems).toEqual<Array<TopicMapItemType>>([
+    expect(actualItems).toEqual<typeof actualItems>([
       expectedItem,
       {
         id: "2",
@@ -453,6 +477,7 @@ describe(updateItem.name, () => {
           links: [],
         },
         description: "",
+        dialogOrDirectLink: "dialog",
       },
     ]);
   });

@@ -37,6 +37,7 @@ Primary.args = {
         },
         label: "Label 1",
         description: "",
+        dialogOrDirectLink: "dialog",
       },
       {
         id: "box-2",
@@ -49,6 +50,7 @@ Primary.args = {
           alt: "",
         },
         label: "Label 2",
+        dialogOrDirectLink: "dialog",
         description:
           "Let's put some highlights on these little trees. The sun wouldn't forget them. I will take some magic white, and a little bit of Vandyke brown and a little touch of yellow. Didn't you know you had that much power? You can move mountains. You can do anything.",
       },
@@ -65,6 +67,7 @@ Primary.args = {
         label: "Label 3",
         description:
           "You can do anything here - the only pre-requisite is that it makes you happy.",
+          dialogOrDirectLink: "dialog",
       },
     ],
     arrowItems: [],

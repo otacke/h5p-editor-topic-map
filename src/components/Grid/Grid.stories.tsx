@@ -47,6 +47,7 @@ GridWithDraggable.args = {
       },
       label: "Label 1",
       description: "",
+      dialogOrDirectLink: "dialog",
     },
 
     {
@@ -60,6 +61,7 @@ GridWithDraggable.args = {
         alt: "",
       },
       label: "Label 2",
+      dialogOrDirectLink: "dialog",
       description:
         "Let's put a touch more of the magic here. If it's not what you want - stop and change it.",
     },

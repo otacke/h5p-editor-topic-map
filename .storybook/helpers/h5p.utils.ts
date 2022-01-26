@@ -19,6 +19,7 @@ export const params: Required<Params> = {
         links: ["https://example.com", "https://example.com/2"],
       },
       description: "",
+      dialogOrDirectLink: "dialog",
     },
     {
       heightPercentage: 100,
@@ -29,6 +30,7 @@ export const params: Required<Params> = {
       yPercentagePosition: 0,
       topicImage: undefined,
       description: "",
+      dialogOrDirectLink: "dialog",
     },
   ],
   arrowItems: [
@@ -41,6 +43,7 @@ export const params: Required<Params> = {
       startElementId: "box-1",
       endElementId: "box-2",
       label: "",
+      dialogOrDirectLink: "dialog",
     },
   ],
   appearance: {
@@ -295,6 +298,7 @@ export const parent: H5PForm = {
           topicImage: { path: "" },
           label: "",
           description: "",
+          dialogOrDirectLink: "dialog",
         },
         {
           id: "461c2820-da07-43bb-8d14-a798c396fd7a",
@@ -305,6 +309,7 @@ export const parent: H5PForm = {
           topicImage: { path: "" },
           label: "",
           description: "",
+          dialogOrDirectLink: "dialog",
         },
         {
           id: "8123ecbf-d416-42a5-8106-47b440de51ec",
@@ -315,6 +320,7 @@ export const parent: H5PForm = {
           topicImage: { path: "" },
           label: "",
           description: "",
+          dialogOrDirectLink: "dialog",
         },
       ],
       arrowItems: [],

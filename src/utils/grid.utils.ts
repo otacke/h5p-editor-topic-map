@@ -310,6 +310,7 @@ export const createTopicMapItem = (): TopicMapItemType => {
     topicImage: undefined,
     label: "",
     description: "",
+    dialogOrDirectLink: "dialog",
   };
 
   return item;
@@ -330,6 +331,7 @@ export const createArrowItem = (
     description: "",
     startElementId: startId,
     endElementId: endId,
+    dialogOrDirectLink: "dialog",
   };
 
   return item;
