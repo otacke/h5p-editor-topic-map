@@ -11,12 +11,11 @@ import { Position } from "../../types/Position";
 import { ResizeDirection } from "../../types/ResizeDirection";
 import { Size } from "../../types/Size";
 import { TopicMapItemType } from "../../types/TopicMapItemType";
-import { getLabel, updateArrowType } from "../../utils/arrow.utils";
+import { getLabel } from "../../utils/arrow.utils";
 import { getPointerPositionFromEvent } from "../../utils/draggable.utils";
 import {
   createArrowItem,
   createTopicMapItem,
-  findConnectedArrows,
   findHeightPercentage,
   findItem,
   findOccupiedCells,
@@ -42,33 +41,33 @@ export type GridProps = {
   numberOfRows: number;
   initialItems: Array<TopicMapItemType>;
   updateItems: (items: Array<TopicMapItemType>) => void;
-  initialArrowItems?: Array<ArrowItemType>;
+  setItems: (items: Array<TopicMapItemType>) => void;
+  arrowItems: Array<ArrowItemType>;
   updateArrowItems: (items: Array<ArrowItemType>) => void;
+  setArrowItems: (items: Array<ArrowItemType>) => void;
   gapSize: number;
-  children?: never;
   setActiveTool: (newValue: ToolbarButtonType | null) => void;
   activeTool: ToolbarButtonType | null;
-  setEditedItem: (itemId: string) => void;
-  setEditedArrow: (itemId: string) => void;
+  selectedItem: string | null;
+  setSelectedItem: (id: string | null) => void;
 };
 
 export const Grid: FC<GridProps> = ({
   numberOfColumns,
   numberOfRows,
-  initialItems,
+  initialItems: items,
+  setItems,
   updateItems,
-  initialArrowItems,
+  arrowItems,
+  setArrowItems,
   updateArrowItems,
   gapSize,
   setActiveTool,
   activeTool,
-  setEditedItem,
-  setEditedArrow,
+  selectedItem,
+  setSelectedItem,
 }) => {
   const [size, setSize] = useState<Size | null>(null);
-  const [items, setItems] = useState(initialItems);
-  const [arrowItems, setArrowItems] = useState(initialArrowItems ?? []);
-  const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const [occupiedCells, setOccupiedCells] = useState<Array<OccupiedCell>>([]);
   const [boxStartIndex, setBoxStartIndex] = useState<number | null>(null);
   const [currentItemsLength, setCurrentItemsLength] = useState(items.length);
@@ -144,7 +143,7 @@ export const Grid: FC<GridProps> = ({
         ),
       );
     },
-    [gapSize, cellSize, items, size, updateItems],
+    [size, items, updateItems, setItems, gapSize, cellSize],
   );
 
   const createArrow = useCallback(
@@ -209,6 +208,8 @@ export const Grid: FC<GridProps> = ({
       arrowStartId,
       items,
       setActiveTool,
+      setArrowItems,
+      setSelectedItem,
       updateArrowItems,
     ],
   );
@@ -234,7 +235,7 @@ export const Grid: FC<GridProps> = ({
         setSelectedItem(items[currentItemsLength].id);
       }
     }
-  }, [activeTool, items, setActiveTool, currentItemsLength]);
+  }, [activeTool, items, setActiveTool, currentItemsLength, setSelectedItem]);
 
   const resizeBoxEnd = useCallback(() => {
     setPrevIndex(null);
@@ -363,12 +364,13 @@ export const Grid: FC<GridProps> = ({
       size,
       numberOfColumns,
       numberOfRows,
-      currentItemsLength,
       items,
+      currentItemsLength,
       gapSize,
       cellSize,
       occupiedCells,
       updateItems,
+      setItems,
       updateItemSize,
     ],
   );
@@ -499,16 +501,17 @@ export const Grid: FC<GridProps> = ({
       resizedItemId,
       boxStartIndex,
       size,
-      numberOfColumns,
-      numberOfRows,
       items,
+      numberOfColumns,
+      prevIndex,
+      resizeDirectionLock,
+      numberOfRows,
       gapSize,
       cellSize,
       occupiedCells,
       updateItems,
-      resizeDirectionLock,
+      setItems,
       updateItemSize,
-      prevIndex,
     ],
   );
 
@@ -614,49 +617,7 @@ export const Grid: FC<GridProps> = ({
 
       setOccupiedCells(newOccupiedCells);
     },
-    [size, items, updateItems, gapSize, cellSize],
-  );
-
-  const editItem = useCallback(
-    (id: string) => {
-      if (!activeTool) {
-        setEditedItem(id);
-      }
-    },
-    [activeTool, setEditedItem],
-  );
-
-  const editArrow = useCallback(
-    (id: string) => {
-      if (!activeTool) {
-        setEditedArrow(id);
-      }
-    },
-    [activeTool, setEditedArrow],
-  );
-
-  const deleteArrow = useCallback(
-    (id: string) => {
-      const newItems = arrowItems.filter(item => item.id !== id);
-
-      updateArrowItems(newItems);
-      setArrowItems(newItems);
-    },
-    [arrowItems, updateArrowItems],
-  );
-
-  const deleteItem = useCallback(
-    (id: string) => {
-      const newItems = items.filter(item => item.id !== id);
-
-      const connectedArrows = findConnectedArrows(id, arrowItems);
-      connectedArrows.forEach(item => deleteArrow(item.id));
-
-      updateItems(newItems);
-      setItems(newItems);
-      setCurrentItemsLength(newItems.length);
-    },
-    [arrowItems, deleteArrow, items, updateItems],
+    [size, items, updateItems, setItems, gapSize, cellSize],
   );
 
   const startResize = useCallback(
@@ -670,22 +631,6 @@ export const Grid: FC<GridProps> = ({
       setResizeDirectionLock(directionLock);
     },
     [numberOfColumns, numberOfRows],
-  );
-
-  const setArrowType = useCallback(
-    (type: ArrowType, id: string) => {
-      const updatedItem = arrowItems.find(item => item.id === id);
-
-      if (!updatedItem) {
-        throw new Error(`Updated arrow with id "${id}" does not exist`);
-      }
-
-      const newItems = updateArrowType(arrowItems, updatedItem, type, items);
-
-      updateArrowItems(newItems);
-      setArrowItems(newItems);
-    },
-    [arrowItems, items, updateArrowItems],
   );
 
   const children = useMemo(() => {
@@ -707,8 +652,6 @@ export const Grid: FC<GridProps> = ({
         gridSize={size}
         occupiedCells={occupiedCells}
         isPreview={isDragging}
-        editItem={editItem}
-        deleteItem={deleteItem}
         setSelectedItem={setSelectedItem}
         selectedItem={selectedItem}
         startResize={directionLock => startResize(item, directionLock)}
@@ -721,22 +664,26 @@ export const Grid: FC<GridProps> = ({
       </Draggable>
     ));
   }, [
-    gapSize,
-    cellSize,
-    size,
-    items,
-    occupiedCells,
-    isDragging,
-    editItem,
-    deleteItem,
-    setSelectedItem,
-    selectedItem,
-    mouseOutsideGrid,
     activeTool,
-    updateItemPosition,
-    startResize,
+    cellSize,
     createArrow,
+    gapSize,
+    isDragging,
+    items,
+    mouseOutsideGrid,
+    occupiedCells,
+    selectedItem,
+    setSelectedItem,
+    size,
+    startResize,
+    updateItemPosition,
   ]);
+
+  useEffect(() => {
+    if (!selectedItem) {
+      setMouseOutsideGrid(false);
+    }
+  }, [selectedItem]);
 
   const renderArrow = useCallback(
     (item: ArrowItemType) => (
@@ -744,14 +691,10 @@ export const Grid: FC<GridProps> = ({
         key={item.id}
         cellSize={cellSize}
         item={item}
-        deleteItem={deleteArrow}
-        editItem={editArrow}
-        selectedItemId={selectedItem}
         setSelectedItemId={setSelectedItem}
-        updateArrowType={setArrowType}
       />
     ),
-    [cellSize, deleteArrow, editArrow, selectedItem, setArrowType],
+    [cellSize, setSelectedItem],
   );
 
   const childrenArrows = useMemo(
@@ -778,12 +721,12 @@ export const Grid: FC<GridProps> = ({
 
       setSize({ width, height });
     });
-  }, [items, size]);
+  }, [items, setItems, size]);
 
   useEffectOnce(() => {
     const windowClickListener = (event: MouseEvent | TouchEvent): void => {
       const draggableWasClicked = !!(event.target as HTMLElement).closest(
-        ".draggable, .arrow-item",
+        ".draggable, .arrow-item, .context-menu-actions",
       );
 
       if (!draggableWasClicked) {

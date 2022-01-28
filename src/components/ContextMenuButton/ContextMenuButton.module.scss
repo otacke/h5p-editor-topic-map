@@ -1,7 +1,7 @@
 .contextMenuButton {
   vertical-align: top;
   position: relative;
-  font-size: 1.2em;
+  font-size: 1.1rem;
 
   width: 2em;
   height: 1.5em;
@@ -40,11 +40,11 @@
   color: white;
   white-space: nowrap;
   position: absolute;
-  left: 0;
-  bottom: -2px;
-  transform: translateY(-29px);
+  right: -5px;
+  bottom: -5.5px;
   z-index: 1;
   padding: 0.2em 0.5em;
-  font-size: 0.8em;
+  font-size: 0.96rem;
   border-radius: 4px;
+  transform: translateY(100%);
 }

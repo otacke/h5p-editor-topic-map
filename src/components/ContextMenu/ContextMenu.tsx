@@ -16,22 +16,12 @@ export enum ContextMenuButtonType {
 }
 
 export type ContextMenuProps = {
-  show: boolean;
-  turnLeft: boolean;
   actions: Array<ContextMenuAction>;
 };
 
-export const ContextMenu: React.FC<ContextMenuProps> = ({
-  show,
-  turnLeft,
-  actions,
-}) => {
-  const className = turnLeft ? styles.left : styles.right;
-
+export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => {
   return (
-    <div
-      className={`${styles.contextMenu} ${className} ${show && styles.show}`}
-    >
+    <div className={styles.contextMenu}>
       {actions.map(({ icon, label, onClick }) => (
         <ContextMenuButton
           key={label}

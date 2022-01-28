@@ -25,7 +25,7 @@ export enum ToolbarButtonType {
   CreateArrow = "createArrow",
 }
 
-export type ToolBarProps = {
+export type ToolbarProps = {
   setActiveTool: (activeTool: ToolbarButtonType | null) => void;
   activeTool: ToolbarButtonType | null;
   isArrowButtonDisabled: boolean;
@@ -35,7 +35,7 @@ export type ToolBarProps = {
   parent: H5PForm;
 };
 
-export const Toolbar: React.FC<ToolBarProps> = ({
+export const Toolbar: React.FC<ToolbarProps> = ({
   setActiveTool,
   activeTool,
   isArrowButtonDisabled,
@@ -43,6 +43,7 @@ export const Toolbar: React.FC<ToolBarProps> = ({
   backgroundImageField,
   params,
   parent,
+  children,
 }) => {
   const [activeButton, setActiveButton] = React.useState(activeTool);
   const [appearanceDialogOpen, setAppearanceDialogOpen] = React.useState(false);
@@ -71,43 +72,46 @@ export const Toolbar: React.FC<ToolBarProps> = ({
 
   return (
     <div className={styles.toolbar}>
-      <ToolbarButton
-        icon={ToolbarButtonType.MapColor}
-        label={t(labelTextKeys.mapColor)}
-        onClick={() => setAppearanceDialogOpen(wasOpen => !wasOpen)}
-        active={false}
-        showActive={false}
-        isDisabled={false}
-      />
-      <ToolbarButton
-        icon={ToolbarButtonType.CreateBox}
-        label={t(labelTextKeys.createBox)}
-        onClick={() => setActive(ToolbarButtonType.CreateBox)}
-        active={checkIfActive(ToolbarButtonType.CreateBox)}
-        showActive
-        isDisabled={false}
-      />
-      <ToolbarButton
-        icon={ToolbarButtonType.CreateArrow}
-        label={
-          isArrowButtonDisabled
-            ? t(labelTextKeys.cannotCreateArrow)
-            : t(labelTextKeys.createArrow)
-        }
-        onClick={() => setActive(ToolbarButtonType.CreateArrow)}
-        active={checkIfActive(ToolbarButtonType.CreateArrow)}
-        showActive
-        isDisabled={isArrowButtonDisabled}
-      />
+      <div className={styles.left}>
+        <ToolbarButton
+          icon={ToolbarButtonType.MapColor}
+          label={t(labelTextKeys.mapColor)}
+          onClick={() => setAppearanceDialogOpen(wasOpen => !wasOpen)}
+          active={false}
+          showActive={false}
+          isDisabled={false}
+        />
+        <ToolbarButton
+          icon={ToolbarButtonType.CreateBox}
+          label={t(labelTextKeys.createBox)}
+          onClick={() => setActive(ToolbarButtonType.CreateBox)}
+          active={checkIfActive(ToolbarButtonType.CreateBox)}
+          showActive
+          isDisabled={false}
+        />
+        <ToolbarButton
+          icon={ToolbarButtonType.CreateArrow}
+          label={
+            isArrowButtonDisabled
+              ? t(labelTextKeys.cannotCreateArrow)
+              : t(labelTextKeys.createArrow)
+          }
+          onClick={() => setActive(ToolbarButtonType.CreateArrow)}
+          active={checkIfActive(ToolbarButtonType.CreateArrow)}
+          showActive
+          isDisabled={isArrowButtonDisabled}
+        />
 
-      <AppearanceDialog
-        isOpen={appearanceDialogOpen}
-        setIsOpen={setAppearanceDialogOpen}
-        onSave={setParams}
-        backgroundImageField={backgroundImageField}
-        params={params}
-        parent={parent}
-      />
+        <AppearanceDialog
+          isOpen={appearanceDialogOpen}
+          setIsOpen={setAppearanceDialogOpen}
+          onSave={setParams}
+          backgroundImageField={backgroundImageField}
+          params={params}
+          parent={parent}
+        />
+      </div>
+      <div className={`context-menu-actions ${styles.right}`}>{children}</div>
     </div>
   );
 };
