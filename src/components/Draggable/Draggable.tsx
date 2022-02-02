@@ -41,6 +41,7 @@ export type DraggableProps = {
   showScaleHandles: boolean;
   onPointerDown: (pointerPosition: Position) => void;
   activeTool: ToolbarButtonType | null;
+  onDoubleClick: () => void;
 };
 
 export const Draggable: FC<DraggableProps> = ({
@@ -63,6 +64,7 @@ export const Draggable: FC<DraggableProps> = ({
   showScaleHandles,
   onPointerDown,
   activeTool,
+  onDoubleClick,
 }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [isSelected, setIsSelected] = useState(selectedItem === id);
@@ -317,7 +319,7 @@ export const Draggable: FC<DraggableProps> = ({
       onMouseUp={stopDrag}
       onTouchEnd={stopDrag}
       onTransitionEnd={() => updateXarrow()}
-      onDoubleClick={() => editItem(id)}
+      onDoubleClick={onDoubleClick}
       data-draggable
     >
       <div className={styles.inner} tabIndex={-1}>

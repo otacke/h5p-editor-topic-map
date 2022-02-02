@@ -268,6 +268,8 @@ export const MapEditorView: React.FC<MapEditorViewProps> = ({
           setSelectedItem={setSelectedItem}
           setArrowItems={setArrowItems}
           setItems={setGridItems}
+          editItem={setEditedItem}
+          editArrow={setEditedArrow}
         />
         <Dialog
           isOpen={Boolean(semantics && (editedItem || editedArrow))}

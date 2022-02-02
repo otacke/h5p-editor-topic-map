@@ -9,19 +9,21 @@ export type ArrowProps = {
   cellSize: number;
   item: ArrowItemType;
   setSelectedItemId: (itemId: string) => void;
+  onDoubleClick: () => void;
 };
 
 export const Arrow: FC<ArrowProps> = ({
   cellSize,
   item,
   setSelectedItemId,
+  onDoubleClick,
 }) => {
   const arrowBodyWidth = cellSize / 2.5;
 
   const arrowProps = {
     tabIndex: -1,
     onClick: () => setSelectedItemId(item.id),
-    onDoubleClick: () => editItem(item.id),
+    onDoubleClick,
     role: "button",
   };
 

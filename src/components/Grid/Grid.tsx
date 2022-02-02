@@ -50,6 +50,8 @@ export type GridProps = {
   activeTool: ToolbarButtonType | null;
   selectedItem: string | null;
   setSelectedItem: (id: string | null) => void;
+  editItem: (id: string) => void;
+  editArrow: (id: string) => void;
 };
 
 export const Grid: FC<GridProps> = ({
@@ -66,6 +68,8 @@ export const Grid: FC<GridProps> = ({
   activeTool,
   selectedItem,
   setSelectedItem,
+  editItem,
+  editArrow,
 }) => {
   const [size, setSize] = useState<Size | null>(null);
   const [occupiedCells, setOccupiedCells] = useState<Array<OccupiedCell>>([]);
@@ -659,6 +663,7 @@ export const Grid: FC<GridProps> = ({
         showScaleHandles
         onPointerDown={pointerPosition => createArrow(item.id, pointerPosition)}
         activeTool={activeTool}
+        onDoubleClick={() => editItem(item.id)}
       >
         <TopicMapItem item={item} />
       </Draggable>
@@ -667,6 +672,7 @@ export const Grid: FC<GridProps> = ({
     activeTool,
     cellSize,
     createArrow,
+    editItem,
     gapSize,
     isDragging,
     items,
@@ -692,9 +698,10 @@ export const Grid: FC<GridProps> = ({
         cellSize={cellSize}
         item={item}
         setSelectedItemId={setSelectedItem}
+        onDoubleClick={() => editArrow(item.id)}
       />
     ),
-    [cellSize, setSelectedItem],
+    [cellSize, editArrow, setSelectedItem],
   );
 
   const childrenArrows = useMemo(
