@@ -141,6 +141,20 @@ export const Arrow: React.FC<ArrowProps> = ({
       <svg className={styles.arrowSvg}>
         <defs>
           <marker
+            id="arrowheadoutline"
+            markerWidth="10"
+            markerHeight="10"
+            refX="0.7"
+            refY="1"
+            orient="auto"
+          >
+            <path
+              d="M0,0 L0,2 L1.5,1 z"
+              fill="var(--theme-color-3)"
+              onClick={() => setSelectedItemId(item.id)}
+            />
+          </marker>
+          <marker
             id="arrowhead"
             markerWidth="10"
             markerHeight="10"
@@ -168,7 +182,37 @@ export const Arrow: React.FC<ArrowProps> = ({
               onClick={() => setSelectedItemId(item.id)}
             />
           </marker>
+          <marker
+            id="arrowtailoutline"
+            markerWidth="10"
+            markerHeight="10"
+            refX="0.7"
+            refY="1"
+            orient="auto-start-reverse"
+          >
+            <path
+              d="M0,0 L0,2 L1.5,1 z"
+              fill="var(--theme-color-3)"
+              onClick={() => setSelectedItemId(item.id)}
+            />
+          </marker>
         </defs>
+        <path
+          d={pathDef}
+          stroke="var(--theme-color-3)"
+          strokeWidth={cellSize * 0.66 * 1.5}
+          markerStart={
+            item.arrowType === ArrowType.BiDirectional
+              ? "url(#arrowtailoutline)"
+              : ""
+          }
+          markerEnd={
+            item.arrowType === ArrowType.BiDirectional ||
+            item.arrowType === ArrowType.Directional
+              ? "url(#arrowheadoutline)"
+              : ""
+          }
+        />
         <path
           className={
             selectedItemId === null ? styles.path : styles.pathSelected
