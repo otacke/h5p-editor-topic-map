@@ -88,6 +88,14 @@ export const xAdjustmentStart = (
       return -1.5;
     }
   }
+
+  if (isHorizontal) {
+    if (isHorizontal && item.startGridPosition.x <= item.endGridPosition.x) {
+      return 0;
+    }
+    return -1;
+  }
+
   return -0.5;
 };
 
@@ -107,7 +115,15 @@ export const yAdjustmentStart = (
       return -1.75;
     }
   }
-  return -0.5;
+
+  if (!isHorizontal) {
+    if (item.startGridPosition.y <= item.endGridPosition.y) {
+      return 0;
+    }
+    return -1;
+  }
+
+  return -0.33;
 };
 
 export const xAdjustmentEnd = (
@@ -123,7 +139,7 @@ export const xAdjustmentEnd = (
     item.arrowType === ArrowType.BiDirectional
   ) {
     if (isHorizontal && item.startGridPosition.x <= item.endGridPosition.x) {
-      return -1.75;
+      return -1.5;
     }
 
     if (isHorizontal) {
@@ -135,11 +151,11 @@ export const xAdjustmentEnd = (
 
   if (item.arrowType === ArrowType.NonDirectional) {
     if (isHorizontal && item.startGridPosition.x <= item.endGridPosition.x) {
-      return -0.5;
+      return -1;
     }
 
     if (isHorizontal) {
-      return -0.5;
+      return -0;
     }
 
     return -0.5;
@@ -160,26 +176,30 @@ export const yAdjustmentEnd = (
     item.arrowType === ArrowType.BiDirectional
   ) {
     if (isHorizontal) {
-      return -0.5;
+      return -0.33;
     }
     if (item.startGridPosition.y <= item.endGridPosition.y) {
-      return -1.75;
+      return -1.5;
     }
-    return 0.5;
+    return 0.33;
   }
 
   if (item.arrowType === ArrowType.NonDirectional) {
     if (!isHorizontal && item.startGridPosition.y <= item.endGridPosition.y) {
-      return -0.5;
+      return -1;
     }
 
     if (!isHorizontal) {
       return -0.5;
     }
 
-    return -0.5;
+    return -0.33;
   }
-  return 0;
+
+  if (!isHorizontal && item.startGridPosition.y <= item.endGridPosition.y) {
+    return -2;
+  }
+  return -0.33;
 };
 
 export const adjustArrowStartPosition = (
