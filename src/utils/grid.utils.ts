@@ -1,4 +1,4 @@
-import { v4 as uuidV4 } from "uuid";
+import { H5P } from "h5p-utils/src/utils/H5P.utils";
 import { ArrowItemType } from "../types/ArrowItemType";
 import { ArrowType } from "../types/ArrowType";
 import { Cell } from "../types/Cell";
@@ -322,7 +322,7 @@ export const findHeightPercentage = (
 };
 
 export const createTopicMapItem = (): TopicMapItemType => {
-  const id = uuidV4();
+  const id = H5P.createUUID();
 
   // backgroundImage is intentionally set to undefined here
   // to correctly make the image field empty on item creation
@@ -352,7 +352,7 @@ export const createArrowItem = (
   breakpoints: Array<Position>,
   relativeBreakpoints: Array<Position>,
 ): ArrowItemType => {
-  const id = uuidV4();
+  const id = H5P.createUUID();
 
   const item: ArrowItemType = {
     id,
